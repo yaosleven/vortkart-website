@@ -145,11 +145,12 @@ document.addEventListener('DOMContentLoaded', function () {
     statNums.forEach(el => countObs.observe(el));
   }
 
-  // ---- Contact form ----
+  // ---- Contact form (FormSubmit AJAX) ----
   const form = document.getElementById('contactForm');
   if (form) {
     const submitBtn = form.querySelector('[type="submit"]');
     const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+    const replytoField = document.getElementById('replytoField');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -157,29 +158,64 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Basic client-side validation
       let valid = true;
+      let firstInvalid = null;
       form.querySelectorAll('[required]').forEach(field => {
         if (!field.value.trim()) {
           field.style.borderColor = 'var(--primary)';
+          if (!firstInvalid) firstInvalid = field;
           valid = false;
         } else {
           field.style.borderColor = '';
         }
       });
-      if (!valid) return;
+      if (!valid) {
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Set reply-to email for FormSubmit
+      const emailField = form.querySelector('#email');
+      if (emailField && replytoField) {
+        replytoField.value = emailField.value;
+      }
 
       submitBtn.innerHTML = 'Sending&hellip;';
       submitBtn.disabled = true;
 
-      setTimeout(() => {
-        submitBtn.innerHTML = '&#10003; Message Sent — We\'ll be in touch within 24 hours!';
-        submitBtn.style.background = '#22c55e';
-        form.reset();
+      // Collect form data
+      const formData = new FormData(form);
+      const action = form.getAttribute('action');
+
+      fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success === 'true' || data.success === true) {
+          submitBtn.innerHTML = '&#10003; Message Sent — We\'ll be in touch within 24 hours!';
+          submitBtn.style.background = '#22c55e';
+          form.reset();
+          setTimeout(() => {
+            submitBtn.innerHTML = originalBtnHTML;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+          }, 4000);
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      })
+      .catch(error => {
+        console.error('FormSubmit error:', error);
+        submitBtn.innerHTML = '&#9888; Submission failed. Please email us directly at sales@vortkart.com';
+        submitBtn.style.background = '#ef4444';
         setTimeout(() => {
           submitBtn.innerHTML = originalBtnHTML;
           submitBtn.style.background = '';
           submitBtn.disabled = false;
-        }, 4000);
-      }, 1500);
+        }, 6000);
+      });
     });
   }
 
