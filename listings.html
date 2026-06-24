@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VortKart® Portfolio | Go Kart Projects, Products & Track Installations</title>
+  <meta name="description" content="Browse VortKart®'s portfolio of commercial go kart deployments, track design projects, and karting attraction installations across the world." />
+  <meta name="keywords" content="go kart portfolio, commercial karting projects, kart track installation gallery, go kart supplier showcase" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- LISTINGS-SPECIFIC ---- */
+    .listings-intro { background: var(--dark); }
+    .portfolio-grid-section { background: var(--dark); padding-bottom: 100px; }
+
+    /* Portfolio cards */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .portfolio-card {
+      border-radius: var(--radius-lg); overflow: hidden;
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.07);
+      transition: var(--transition); position: relative;
+    }
+    .portfolio-card:hover { border-color: rgba(230,57,0,0.35); transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .portfolio-card.featured { grid-column: span 2; }
+    .portfolio-img { overflow: hidden; position: relative; }
+    .portfolio-card:not(.featured) .portfolio-img { aspect-ratio: 16/10; }
+    .portfolio-card.featured .portfolio-img { aspect-ratio: 21/9; }
+    .portfolio-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: transform 0.5s ease; }
+    .portfolio-card:hover .portfolio-img img { transform: scale(1.05); }
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(10,10,10,0.7) 0%, transparent 60%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-view-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.8);
+      background: var(--primary); color: var(--white); border-radius: 100px;
+      padding: 10px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; opacity: 0; transition: all var(--transition);
+      white-space: nowrap; text-decoration: none; display: block;
+    }
+    .portfolio-card:hover .portfolio-view-btn { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    .portfolio-info { padding: 24px; }
+    .portfolio-meta {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+    }
+    .portfolio-category {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--primary); background: rgba(230,57,0,0.1); padding: 3px 10px; border-radius: 100px;
+    }
+    .portfolio-country {
+      font-size: 12px; color: var(--gray-3);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .portfolio-country svg { width: 12px; height: 12px; }
+    .portfolio-info h4 { font-size: 18px; margin-bottom: 6px; }
+    .portfolio-info p { font-size: 13px; color: var(--gray-3); }
+    .portfolio-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+    .portfolio-tag {
+      font-size: 11px; color: var(--gray-3); background: var(--dark-4);
+      padding: 3px 10px; border-radius: 4px;
+    }
+    .portfolio-stats {
+      display: flex; gap: 20px; margin-top: 16px;
+      padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .portfolio-stat-item { }
+    .portfolio-stat-item .num {
+      font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: var(--white); line-height: 1;
+    }
+    .portfolio-stat-item .lbl { font-size: 11px; color: var(--gray-3); margin-top: 2px; }
+
+    /* Kart product cards */
+    .products-section { background: var(--dark-2); }
+    .product-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl); overflow: hidden; transition: var(--transition);
+    }
+    .product-card:hover { border-color: rgba(230,57,0,0.35); transform: translateY(-6px); }
+    .product-img { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: transform 0.5s ease; }
+    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-badge {
+      position: absolute; top: 16px; left: 16px;
+      background: var(--primary); color: var(--white);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .product-info { padding: 28px; }
+    .product-info h4 { font-size: 22px; margin-bottom: 8px; }
+    .product-info p { font-size: 14px; color: var(--gray-3); margin-bottom: 16px; }
+    .product-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .spec-item { background: var(--dark-4); border-radius: var(--radius-sm); padding: 10px 12px; }
+    .spec-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-3); }
+    .spec-value { font-size: 14px; font-weight: 600; color: var(--white); margin-top: 2px; }
+    .product-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Portfolio page hero">
+  <div class="page-hero-bg" style="background-image:url('images/proframe-r32/2.jpg')" role="img" aria-label="Aerial view of professional go kart track"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Portfolio</span>
+      </nav>
+      <div class="label">Our Work</div>
+      <h1>Karts & Tracks<br>Around the <span class="highlight">World</span></h1>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-strip" aria-label="Portfolio statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="text-center fade-in">
+        <div class="stat-num" data-count="120" data-suffix="+">120+</div>
+        <div class="stat-label">Track Projects</div>
+      </div>
+      <div class="text-center fade-in delay-1">
+        <div class="stat-num" data-count="500" data-suffix="+">500+</div>
+        <div class="stat-label">Karts Deployed</div>
+      </div>
+      <div class="text-center fade-in delay-2">
+        <div class="stat-num" data-count="60" data-suffix="+">60+</div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div class="text-center fade-in delay-3">
+        <div class="stat-num" data-count="15" data-suffix="+">15+</div>
+        <div class="stat-label">Years Portfolio</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KART PRODUCTS -->
+<section class="section products-section" aria-labelledby="products-heading">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Product Lines</div>
+      <h2 id="products-heading">Our <span class="highlight">Kart Models</span></h2>
+      <p>Three purpose-engineered product families to match every venue type and operational requirement.</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar" role="navigation" aria-label="Product filter">
+      <button class="filter-btn active" data-filter="all">All Models</button>
+      <button class="filter-btn" data-filter="electric">Electric</button>
+      <button class="filter-btn" data-filter="gas">Gas</button>
+      <button class="filter-btn" data-filter="junior">Junior</button>
+      <button class="filter-btn" data-filter="racing">Racing</button>
+    </div>
+
+    <div class="grid-3">
+      <div class="product-card fade-in delay-1" data-category="electric">
+        <div class="product-img">
+          <img src="images/ev-pro-48/1.jpg" alt="VortKart EV-Pro electric commercial go kart for indoor and outdoor tracks" loading="lazy" />
+          <span class="product-badge">Bestseller</span>
+        </div>
+        <div class="product-info">
+          <h4>EV-Pro® 48</h4>
+          <p>Our flagship electric rental kart — zero-emission, low-noise, high-durability. Built for indoor and outdoor venues demanding premium guest experience.</p>
+          <div class="product-specs" aria-label="EV-Pro 48 specifications">
+            <div class="spec-item"><div class="spec-label">Motor</div><div class="spec-value">3kW Electric</div></div>
+            <div class="spec-item"><div class="spec-label">Top Speed</div><div class="spec-value">50 km/h</div></div>
+            <div class="spec-item"><div class="spec-label">Charge Time</div><div class="spec-value">45 mins</div></div>
+            <div class="spec-item"><div class="spec-label">Runtime</div><div class="spec-value">2–3 hrs</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=ev-pro-48" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-in delay-2" data-category="gas">
+        <div class="product-img">
+          <img src="images/duratrak-270/1.jpg" alt="VortKart DuraTrak gas-powered outdoor commercial go kart on circuit" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <h4>DuraTrak® 270</h4>
+          <p>Powered by a 270cc engine, the DuraTrak® delivers maximum thrills for outdoor attractions and high-throughput rental operations demanding raw performance.</p>
+          <div class="product-specs" aria-label="DuraTrak 270 specifications">
+            <div class="spec-item"><div class="spec-label">Engine</div><div class="spec-value">270cc 4-Stroke</div></div>
+            <div class="spec-item"><div class="spec-label">Top Speed</div><div class="spec-value">75 km/h</div></div>
+            <div class="spec-item"><div class="spec-label">Fuel Tank</div><div class="spec-value">3.5 litres</div></div>
+            <div class="spec-item"><div class="spec-label">Weight</div><div class="spec-value">135 kg</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=duratrak-270" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-in delay-3" data-category="junior">
+        <div class="product-img">
+          <img src="images/juniorsprint-ev/1.jpg" alt="VortKart JuniorSprint electric go kart designed for children 5 to 12 years" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <h4>JuniorSprint® EV</h4>
+          <p>Specifically engineered for young drivers aged 5–12. Speed-limited, impact-resistant bodywork, and intuitive throttle response make it the safest and most popular junior kart in the market.</p>
+          <div class="product-specs" aria-label="JuniorSprint EV specifications">
+            <div class="spec-item"><div class="spec-label">Motor</div><div class="spec-value">1.2kW Electric</div></div>
+            <div class="spec-item"><div class="spec-label">Max Speed</div><div class="spec-value">25 km/h</div></div>
+            <div class="spec-item"><div class="spec-label">Age Range</div><div class="spec-value">5–12 yrs</div></div>
+            <div class="spec-item"><div class="spec-label">Height Range</div><div class="spec-value">110–150cm</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=juniorsprint-ev" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-in delay-1" data-category="racing">
+        <div class="product-img">
+          <img src="images/proframe-r32/1.jpg" alt="VortKart racing chassis for competitive kart racing competitions" loading="lazy" />
+          <span class="product-badge" style="background:var(--accent);color:var(--dark);">Racing</span>
+        </div>
+        <div class="product-info">
+          <h4>ProFrame® R32</h4>
+          <p>CIK/FIA-spec racing chassis for club and national competition. Precision CNC-bent 32mm chrome-moly tubing with competition-optimized geometry.</p>
+          <div class="product-specs" aria-label="ProFrame R32 specifications">
+            <div class="spec-item"><div class="spec-label">Tube Size</div><div class="spec-value">32mm CrMo</div></div>
+            <div class="spec-item"><div class="spec-label">Weight</div><div class="spec-value">56 kg bare</div></div>
+            <div class="spec-item"><div class="spec-label">Homolog.</div><div class="spec-value">CIK/FIA</div></div>
+            <div class="spec-item"><div class="spec-label">Classes</div><div class="spec-value">OK / KZ / X30</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=proframe-r32" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-in delay-2" data-category="electric">
+        <div class="product-img">
+          <img src="images/ev-max-72/1.jpg" alt="VortKart EV-Max high-performance indoor electric kart for FEC operators" loading="lazy" />
+          <span class="product-badge" style="background:#7c3aed;">New 2024</span>
+        </div>
+        <div class="product-info">
+          <h4>EV-Max® 72</h4>
+          <p>Our newest flagship — 72V high-performance electric kart delivering the visceral acceleration of a gas kart with zero emissions. Designed for premium indoor entertainment centers.</p>
+          <div class="product-specs" aria-label="EV-Max 72 specifications">
+            <div class="spec-item"><div class="spec-label">Motor</div><div class="spec-value">5kW BLDC</div></div>
+            <div class="spec-item"><div class="spec-label">Top Speed</div><div class="spec-value">65 km/h</div></div>
+            <div class="spec-item"><div class="spec-label">Charge Time</div><div class="spec-value">30 mins</div></div>
+            <div class="spec-item"><div class="spec-label">0–50 km/h</div><div class="spec-value">3.8 sec</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=ev-max-72" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-in delay-3" data-category="gas">
+        <div class="product-img">
+          <img src="images/duratrak-160/1.jpg" alt="VortKart DuraTrak 160 compact gas go kart for family entertainment centers" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <h4>DuraTrak® 160</h4>
+          <p>Compact gas rental kart with 160cc engine — perfect for family entertainment centers that want the gas kart experience in a more manageable package.</p>
+          <div class="product-specs" aria-label="DuraTrak 160 specifications">
+            <div class="spec-item"><div class="spec-label">Engine</div><div class="spec-value">160cc 4-Stroke</div></div>
+            <div class="spec-item"><div class="spec-label">Top Speed</div><div class="spec-value">55 km/h</div></div>
+            <div class="spec-item"><div class="spec-label">Fuel Tank</div><div class="spec-value">2.5 litres</div></div>
+            <div class="spec-item"><div class="spec-label">Weight</div><div class="spec-value">118 kg</div></div>
+          </div>
+          <div class="product-actions">
+            <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;">Request Quote</a>
+            <a href="product.html?id=duratrak-160" class="btn btn-outline" style="flex:1;justify-content:center;">Get Spec Sheet</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT PORTFOLIO -->
+<section class="section portfolio-grid-section" aria-labelledby="portfolio-heading">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Project Portfolio</div>
+      <h2 id="portfolio-heading">Completed <span class="highlight">Installations</span></h2>
+      <p>A selection of our track design and karting attraction projects delivered worldwide.</p>
+    </div>
+
+    <!-- Portfolio Filter -->
+    <div class="filter-bar" role="navigation" aria-label="Project filter">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="indoor">Indoor</button>
+      <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+      <button class="filter-btn" data-filter="resort">Resort</button>
+      <button class="filter-btn" data-filter="fec">FEC</button>
+    </div>
+
+    <div class="portfolio-grid">
+      <!-- Featured -->
+      <div class="portfolio-card featured fade-in" data-category="outdoor">
+        <div class="portfolio-img">
+          <img src="images/proframe-r32/4.jpg" alt="Outdoor professional go kart track with 40-unit fleet in California USA" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=speedzone-grand-prix" class="portfolio-view-btn" aria-label="View SpeedZone Grand Prix project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">Turnkey Project</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> USA</span>
+          </div>
+          <h4>SpeedZone Grand Prix — California</h4>
+          <p>Full turnkey outdoor karting attraction — 850m track, 40 EV-Pro® karts, pit lanes, grandstand, timing system, and operator training. Delivered in 5 months.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">850m</div><div class="lbl">Track Length</div></div>
+            <div class="portfolio-stat-item"><div class="num">40</div><div class="lbl">Karts</div></div>
+            <div class="portfolio-stat-item"><div class="num">5mo</div><div class="lbl">Timeline</div></div>
+          </div>
+          <div class="portfolio-tags" aria-label="Project tags">
+            <span class="portfolio-tag">EV Fleet</span>
+            <span class="portfolio-tag">Track Design</span>
+            <span class="portfolio-tag">Timing System</span>
+            <span class="portfolio-tag">Staff Training</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card fade-in delay-1" data-category="resort">
+        <div class="portfolio-img">
+          <img src="images/duratrak-270/7.jpg" alt="Luxury resort go kart track with scenic surroundings in Spain" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=grand-marina-resort" class="portfolio-view-btn" aria-label="View Grand Marina Resort Karting project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">Resort</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Spain</span>
+          </div>
+          <h4>Grand Marina Resort Karting</h4>
+          <p>20-kart EV fleet integrated into a luxury resort entertainment hub. Delivered with custom livery and full-service maintenance contract.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">20</div><div class="lbl">EV Karts</div></div>
+            <div class="portfolio-stat-item"><div class="num">400m</div><div class="lbl">Circuit</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card fade-in delay-2" data-category="indoor">
+        <div class="portfolio-img">
+          <img src="images/ev-pro-48/3.jpg" alt="Indoor karting track in warehouse conversion in Dubai UAE" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=dubai-indoor-dome" class="portfolio-view-btn" aria-label="View Dubai Indoor Karting Dome project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">Indoor Track</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> UAE</span>
+          </div>
+          <h4>Dubai Indoor Karting Dome</h4>
+          <p>Indoor warehouse-to-karting conversion — 600m circuit design, 30 EV-Max® karts, multi-level spectator gallery, and full smart timing system.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">600m</div><div class="lbl">Circuit</div></div>
+            <div class="portfolio-stat-item"><div class="num">30</div><div class="lbl">EV Karts</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card fade-in delay-3" data-category="fec">
+        <div class="portfolio-img">
+          <img src="images/kids-racing/1.jpg" alt="Family entertainment center go kart attraction in Singapore" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=asiapac-family-karting" class="portfolio-view-btn" aria-label="View AsiaPac Family Karting Center project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">FEC</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Singapore</span>
+          </div>
+          <h4>AsiaPac Family Karting Center</h4>
+          <p>Mixed adult and junior fleet for a multi-attraction FEC. Dual-track layout with separate junior and adult circuits. Complete operational setup.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">25</div><div class="lbl">Adult Karts</div></div>
+            <div class="portfolio-stat-item"><div class="num">15</div><div class="lbl">Junior Karts</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card fade-in delay-1" data-category="outdoor">
+        <div class="portfolio-img">
+          <img src="images/duratrak-160/5.jpg" alt="Outdoor karting track installation at amusement park in Australia" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=sunpark-gold-coast" class="portfolio-view-btn" aria-label="View SunPark Karting Experience project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">Amusement Park</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Australia</span>
+          </div>
+          <h4>SunPark Karting Experience — Gold Coast</h4>
+          <p>35-kart mixed gas fleet for a high-volume theme park attraction. Custom livery with park branding. Ongoing maintenance contract in place.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">35</div><div class="lbl">Gas Karts</div></div>
+            <div class="portfolio-stat-item"><div class="num">700m</div><div class="lbl">Track</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card fade-in delay-2" data-category="indoor">
+        <div class="portfolio-img">
+          <img src="images/dual-rider/1.jpg" alt="Corporate indoor karting venue with team racing events in London UK" loading="lazy" />
+          <div class="portfolio-overlay"></div>
+          <a href="project.html?id=apex-corporate-london" class="portfolio-view-btn" aria-label="View Apex Corporate Karting project details">View Project</a>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-meta">
+            <span class="portfolio-category">Corporate Venue</span>
+            <span class="portfolio-country"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> UK</span>
+          </div>
+          <h4>Apex Corporate Karting — London</h4>
+          <p>Premium indoor corporate karting venue with 20 EV-Max® karts, VIP briefing room, live race commentary, and professional lap timing portal.</p>
+          <div class="portfolio-stats" aria-label="Project statistics">
+            <div class="portfolio-stat-item"><div class="num">20</div><div class="lbl">EV Karts</div></div>
+            <div class="portfolio-stat-item"><div class="num">480m</div><div class="lbl">Circuit</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="listings-cta-heading">
+  <div class="container">
+    <div class="fade-in">
+      <div class="label" style="justify-content:center;">Your Project Next</div>
+      <h2 id="listings-cta-heading">Ready to Start Your<br><span class="highlight">Karting Project?</span></h2>
+      <p>Join 500+ operators worldwide who trust VortKart® to power their business.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get a Free Quote</a>
+        <a href="services.html" class="btn btn-outline btn-lg">View Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions. Factory direct. Globally trusted.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="listings.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Go Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+        <a href="contact.html">Parts & Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+1 (234) 567-890</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>sales@vortkart.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>123 Motorsport Drive,<br>Karting District, CA 90001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart® International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

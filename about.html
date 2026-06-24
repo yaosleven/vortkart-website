@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About VortKart® | Our Story, Mission & Commercial Go Kart Expertise</title>
+  <meta name="description" content="Learn about VortKart® — 15+ years manufacturing commercial go karts and designing karting tracks worldwide. Our mission, values, and competitive advantage." />
+  <meta name="keywords" content="about VortKart, go kart manufacturer history, commercial karting company, go kart supplier background" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- ABOUT-SPECIFIC ---- */
+    .mission-section { background: var(--dark-2); }
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .mission-img { border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 4/3; }
+    .mission-img img { width: 100%; height: 100%; object-fit: cover; }
+    .mission-text h2 { margin-bottom: 24px; }
+    .mission-text p { margin-bottom: 20px; }
+    .mission-quote {
+      border-left: 3px solid var(--primary); padding-left: 24px; margin: 32px 0;
+    }
+    .mission-quote blockquote {
+      font-size: 20px; font-style: italic; color: var(--white); line-height: 1.6;
+    }
+    .mission-quote cite { font-size: 13px; color: var(--gray-3); font-style: normal; display: block; margin-top: 12px; }
+
+    /* Timeline */
+    .timeline-section { background: var(--dark); }
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--primary), rgba(230,57,0,0.1));
+    }
+    .timeline-item { position: relative; padding: 0 0 48px 40px; }
+    .timeline-dot {
+      position: absolute; left: -39px; top: 4px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--primary); border: 3px solid var(--dark);
+      box-shadow: 0 0 0 3px rgba(230,57,0,0.3);
+    }
+    .timeline-year {
+      font-family: var(--font-heading); font-size: 14px; font-weight: 800;
+      color: var(--primary); letter-spacing: 0.1em; margin-bottom: 8px;
+    }
+    .timeline-item h4 { font-size: 20px; margin-bottom: 8px; }
+    .timeline-item p { font-size: 15px; max-width: 600px; }
+
+    /* Values */
+    .values-section { background: var(--dark-2); }
+    .value-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg); padding: 32px; text-align: center;
+      transition: var(--transition);
+    }
+    .value-card:hover { border-color: rgba(230,57,0,0.3); transform: translateY(-4px); }
+    .value-num {
+      font-family: var(--font-heading); font-size: 64px; font-weight: 800;
+      color: rgba(230,57,0,0.1); line-height: 1; margin-bottom: 8px;
+    }
+    .value-card h4 { font-size: 18px; margin-bottom: 12px; }
+    .value-card p { font-size: 14px; color: var(--gray-3); }
+
+    /* Differentiators */
+    .diff-section { background: var(--dark); }
+    .diff-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      margin-bottom: 80px; padding-bottom: 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .diff-row.reverse { grid-template-columns: 1fr 1fr; }
+    .diff-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .diff-row.reverse { }
+    .diff-row.reverse .diff-img { order: 2; }
+    .diff-row.reverse .diff-content { order: 1; }
+    .diff-img { border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 16/10; }
+    .diff-img img { width: 100%; height: 100%; object-fit: cover; }
+    .diff-content { }
+    .diff-content h3 { margin-bottom: 16px; }
+    .diff-content p { margin-bottom: 16px; }
+    .diff-list { margin-top: 20px; }
+    .diff-list li {
+      display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px;
+    }
+    .diff-list li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: 8px;
+    }
+    .diff-list li span { font-size: 15px; color: var(--gray-4); }
+
+    /* Team section */
+    .team-section { background: var(--dark-2); }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .team-card {
+      background: var(--dark-3); border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06); transition: var(--transition);
+    }
+    .team-card:hover { border-color: rgba(230,57,0,0.3); transform: translateY(-4px); }
+    .team-img { aspect-ratio: 3/4; overflow: hidden; }
+    .team-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .team-card:hover .team-img img { transform: scale(1.04); }
+    .team-info { padding: 20px; }
+    .team-info h4 { font-size: 18px; margin-bottom: 4px; }
+    .team-info .role { font-size: 13px; color: var(--primary); font-weight: 600; letter-spacing: 0.05em; }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="About page hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')" role="img" aria-label="Racing karts on professional circuit"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>About</span>
+      </nav>
+      <div class="label">Our Story</div>
+      <h1>15 Years of <span class="highlight">Karting</span><br>Excellence</h1>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section mission-section" aria-labelledby="mission-heading">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-img fade-in">
+        <img src="images/ev-pro-48/4.jpg" alt="VortKart manufacturing team building commercial go karts" loading="lazy" />
+      </div>
+      <div class="mission-text fade-in delay-2">
+        <div class="label">Our Mission</div>
+        <h2 id="mission-heading">Powering the World's<br><span class="highlight">Karting Industry</span></h2>
+        <p>VortKart® was founded in 2009 with a clear mission: to make world-class commercial karting accessible to entrepreneurs, resorts, and entertainment venues globally — without the premium markup of traditional distributors.</p>
+        <p>We believed that factory-direct manufacturing, combined with deep engineering expertise and end-to-end project support, would create a better solution for operators everywhere. That belief has been validated by 500+ successful deployments across 60+ countries.</p>
+        <div class="mission-quote">
+          <blockquote>"We don't just sell karts. We invest in our clients' success — from the first consultation through years of ongoing support."</blockquote>
+          <cite>— Marcus Chen, Founder & CEO of VortKart®</cite>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Work With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip" aria-label="Company milestones">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="text-center fade-in">
+        <div class="stat-num" data-count="500" data-suffix="+">500+</div>
+        <div class="stat-label">Karts in Operation</div>
+      </div>
+      <div class="text-center fade-in delay-1">
+        <div class="stat-num" data-count="120" data-suffix="+">120+</div>
+        <div class="stat-label">Tracks Designed</div>
+      </div>
+      <div class="text-center fade-in delay-2">
+        <div class="stat-num" data-count="60" data-suffix="+">60+</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="text-center fade-in delay-3">
+        <div class="stat-num" data-count="98" data-suffix="%">98%</div>
+        <div class="stat-label">Client Renewal Rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="section timeline-section" aria-labelledby="timeline-heading">
+  <div class="container">
+    <div class="section-header fade-in" style="max-width:600px;">
+      <div class="label">Our Journey</div>
+      <h2 id="timeline-heading">From Garage to<br><span class="highlight">Global Leader</span></h2>
+    </div>
+    <div style="max-width: 720px;">
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2009</div>
+          <h4>The Beginning</h4>
+          <p>VortKart® founded in a 2,000 sq ft workshop with a team of 6 engineers passionate about motorsport. First commercial rental kart model launched and immediately adopted by 3 local tracks.</p>
+        </div>
+        <div class="timeline-item fade-in delay-1">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2012</div>
+          <h4>International Expansion</h4>
+          <p>First export orders shipped to Europe and the Middle East. Manufacturing facility expanded to 15,000 sq ft. Received first ISO 9001 quality certification.</p>
+        </div>
+        <div class="timeline-item fade-in delay-2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2015</div>
+          <h4>Track Design Division Launched</h4>
+          <p>Expanded services beyond kart manufacturing to include full track design, layout consultation, and turnkey project management — transforming into a complete solutions provider.</p>
+        </div>
+        <div class="timeline-item fade-in delay-3">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2018</div>
+          <h4>Electric Kart Series</h4>
+          <p>Launched the EV-Pro® electric commercial kart series, answering growing demand from indoor venues and eco-conscious operators. Over 200 units shipped in the first year.</p>
+        </div>
+        <div class="timeline-item fade-in delay-4">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2024</div>
+          <h4>Global Leadership</h4>
+          <p>500th kart milestone reached. Operations in 60+ countries. New 40,000 sq ft manufacturing campus opened. Distributor network spans 35 territories worldwide.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS -->
+<section class="section diff-section" aria-labelledby="diff-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">Why We Win</div>
+      <h2 id="diff-heading">Our <span class="highlight">Differentiators</span></h2>
+      <p>Three things set VortKart® apart from every other manufacturer in the industry.</p>
+    </div>
+    <div>
+      <div class="diff-row fade-in">
+        <div class="diff-img">
+          <img src="images/proframe-r32/5.jpg" alt="Advanced CNC machining and manufacturing process for go kart chassis" loading="lazy" />
+        </div>
+        <div class="diff-content">
+          <div class="label">01 — Manufacturing</div>
+          <h3>Factory-Direct,<br><span class="highlight">Zero Compromise</span></h3>
+          <p>Unlike importers or resellers, VortKart® owns the entire manufacturing chain. Our engineers design every component, our welders fabricate every chassis, and our QA team certifies every unit before shipment.</p>
+          <ul class="diff-list" aria-label="Manufacturing advantages">
+            <li><span>In-house steel tube bending and CNC machining</span></li>
+            <li><span>Proprietary welding jigs for dimensional accuracy</span></li>
+            <li><span>100-point pre-shipment quality inspection</span></li>
+            <li><span>Custom OEM branding and livery production</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="diff-row reverse fade-in">
+        <div class="diff-img">
+          <img src="images/proframe-r32/2.jpg" alt="Professional go kart track design blueprint and aerial view" loading="lazy" />
+        </div>
+        <div class="diff-content">
+          <div class="label">02 — Design Expertise</div>
+          <h3>Track Design That<br><span class="highlight">Maximizes Revenue</span></h3>
+          <p>Our in-house track designers don't just draw layouts — they optimize for throughput, guest experience, and operational efficiency. Every track we design is modeled in 3D before construction begins.</p>
+          <ul class="diff-list" aria-label="Design advantages">
+            <li><span>3D CAD modeling and simulation for every project</span></li>
+            <li><span>Revenue-per-seat-hour optimization analysis</span></li>
+            <li><span>FIA-aligned safety barrier and runoff planning</span></li>
+            <li><span>Lighting, signage, and spectator zone design</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="diff-row fade-in">
+        <div class="diff-img">
+          <img src="images/kids-racing/6.jpg" alt="Customer support team helping karting operators with technical assistance" loading="lazy" />
+        </div>
+        <div class="diff-content">
+          <div class="label">03 — Lifetime Support</div>
+          <h3>Support That<br><span class="highlight">Never Stops</span></h3>
+          <p>Our relationship with clients doesn't end at delivery. VortKart® operates a global spare parts network and provides dedicated technical support throughout the lifetime of your fleet.</p>
+          <ul class="diff-list" aria-label="Support advantages">
+            <li><span>24/7 technical hotline in multiple languages</span></li>
+            <li><span>Spare parts shipped within 48 hours worldwide</span></li>
+            <li><span>Annual operator training and recertification programs</span></li>
+            <li><span>Fleet upgrade and refurbishment services</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section values-section" aria-labelledby="values-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">What We Stand For</div>
+      <h2 id="values-heading">Our Core <span class="highlight">Values</span></h2>
+    </div>
+    <div class="grid-4">
+      <div class="value-card fade-in delay-1">
+        <div class="value-num">01</div>
+        <h4>Safety First</h4>
+        <p>Every kart we manufacture exceeds international safety standards. No shortcuts, ever.</p>
+      </div>
+      <div class="value-card fade-in delay-2">
+        <div class="value-num">02</div>
+        <h4>Quality Over Volume</h4>
+        <p>We'd rather build fewer karts perfectly than rush production and compromise durability.</p>
+      </div>
+      <div class="value-card fade-in delay-3">
+        <div class="value-num">03</div>
+        <h4>Client Success</h4>
+        <p>Our reputation is built on your profitability. We win only when you win.</p>
+      </div>
+      <div class="value-card fade-in delay-4">
+        <div class="value-num">04</div>
+        <h4>Continuous Innovation</h4>
+        <p>We invest 8% of revenue into R&D each year to keep our clients ahead of the market.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="about-cta-heading">
+  <div class="container">
+    <div class="fade-in">
+      <div class="label" style="justify-content:center;">Let's Build Together</div>
+      <h2 id="about-cta-heading">Your Vision. Our <span class="highlight">Expertise.</span></h2>
+      <p>Whether you're launching a new venue or upgrading an existing fleet, our team is ready to help you succeed.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get a Free Quote</a>
+        <a href="services.html" class="btn btn-outline btn-lg">See Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions. Factory direct. Globally trusted.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="listings.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Go Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+        <a href="contact.html">Parts & Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+1 (234) 567-890</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>sales@vortkart.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>123 Motorsport Drive,<br>Karting District, CA 90001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart® International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

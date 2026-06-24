@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VortKart&reg; | Project Portfolio</title>
+  <meta name="description" content="Explore VortKart&reg; completed karting projects — track design, fleet deployment, turnkey installations, and client success stories worldwide." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================
+       PROJECT DETAIL PAGE
+       ======================== */
+    .project-hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+      background: var(--dark-2);
+    }
+    .project-hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: opacity 0.5s ease;
+    }
+    .project-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.3) 100%);
+    }
+    .project-hero .container {
+      position: relative; z-index: 2;
+      padding-bottom: 56px;
+    }
+    .pr-breadcrumb {
+      font-size: 12px; color: var(--gray-3); margin-bottom: 16px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pr-breadcrumb a { color: var(--gray-3); transition: color var(--transition); }
+    .pr-breadcrumb a:hover { color: var(--primary); }
+    .pr-meta-row {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .pr-category-badge {
+      display: inline-block; background: var(--primary); color: var(--white);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 100px;
+    }
+    .pr-location {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; color: var(--gray-4);
+    }
+    .pr-location svg { width: 16px; height: 16px; color: var(--primary); }
+    .pr-title {
+      font-family: var(--font-heading); font-size: clamp(32px, 5vw, 54px);
+      font-weight: 800; line-height: 1.05; margin-bottom: 16px;
+      text-transform: uppercase; letter-spacing: -0.02em;
+    }
+    .pr-subtitle {
+      font-size: 17px; color: rgba(255,255,255,0.65); line-height: 1.6;
+      max-width: 680px; margin-bottom: 28px;
+    }
+    .pr-hero-stats {
+      display: flex; gap: 36px; flex-wrap: wrap;
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .pr-hero-stat .num {
+      font-family: var(--font-heading); font-size: 32px; font-weight: 800;
+      color: var(--primary); line-height: 1;
+    }
+    .pr-hero-stat .lbl {
+      font-size: 12px; color: var(--gray-3); margin-top: 6px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* Sections */
+    .pr-section { padding: 80px 0; }
+    .pr-section:nth-child(even) { background: var(--dark-2); }
+
+    /* Overview layout */
+    .pr-overview-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: start;
+    }
+    .pr-overview-text h3 {
+      font-size: 26px; margin-bottom: 20px;
+    }
+    .pr-overview-text p {
+      font-size: 16px; color: var(--gray-4); line-height: 1.8; margin-bottom: 18px;
+    }
+
+    /* Project facts card */
+    .pr-facts-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg); padding: 32px;
+      position: sticky; top: 100px;
+    }
+    .pr-facts-card h4 {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray-3); margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pr-fact-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .pr-fact-row:last-child { border-bottom: none; }
+    .pr-fact-label { font-size: 13px; color: var(--gray-3); }
+    .pr-fact-value { font-size: 14px; font-weight: 600; color: var(--white); text-align: right; }
+
+    /* Scope grid */
+    .pr-scope-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .pr-scope-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: var(--transition);
+    }
+    .pr-scope-card:hover { border-color: rgba(230,57,0,0.25); transform: translateY(-3px); }
+    .pr-scope-icon {
+      width: 48px; height: 48px; min-width: 48px;
+      background: rgba(230,57,0,0.1); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .pr-scope-icon svg { width: 24px; height: 24px; color: var(--primary); }
+    .pr-scope-card h4 { font-size: 17px; margin-bottom: 8px; }
+    .pr-scope-card p { font-size: 14px; color: var(--gray-3); line-height: 1.6; margin: 0; }
+
+    /* Fleet table */
+    .pr-fleet-table-wrap {
+      overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.06);
+    }
+    .pr-fleet-table { width: 100%; border-collapse: collapse; }
+    .pr-fleet-table th {
+      text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray-3);
+      padding: 16px 24px; background: var(--dark-4); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pr-fleet-table td {
+      padding: 16px 24px; font-size: 15px; color: var(--gray-4);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .pr-fleet-table tr:last-child td { border-bottom: none; }
+    .pr-fleet-table tr:hover td { background: rgba(230,57,0,0.04); }
+    .pr-fleet-table td:first-child { font-weight: 600; color: var(--white); }
+    .pr-fleet-table .qty { color: var(--primary); font-weight: 700; }
+
+    /* Timeline */
+    .pr-timeline {
+      position: relative; padding-left: 40px;
+    }
+    .pr-timeline::before {
+      content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+      width: 2px; background: rgba(230,57,0,0.2);
+    }
+    .pr-timeline-item {
+      position: relative; padding-bottom: 36px;
+    }
+    .pr-timeline-item:last-child { padding-bottom: 0; }
+    .pr-timeline-dot {
+      position: absolute; left: -33px; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--primary); border: 3px solid var(--dark);
+      box-shadow: 0 0 0 2px rgba(230,57,0,0.3);
+    }
+    .pr-timeline-date {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 6px;
+    }
+    .pr-timeline-item h4 { font-size: 17px; margin-bottom: 6px; }
+    .pr-timeline-item p { font-size: 14px; color: var(--gray-3); line-height: 1.6; margin: 0; }
+
+    /* Gallery */
+    .pr-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pr-gallery img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: var(--radius-md); cursor: pointer;
+      transition: var(--transition);
+    }
+    .pr-gallery img:hover { transform: scale(1.03); }
+
+    /* Testimonial */
+    .pr-testimonial {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-xl); padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .pr-testimonial::before {
+      content: '"'; position: absolute; top: -20px; left: 32px;
+      font-family: var(--font-heading); font-size: 140px; font-weight: 800;
+      color: rgba(230,57,0,0.08); line-height: 1;
+    }
+    .pr-testimonial-text {
+      font-size: 20px; line-height: 1.7; color: var(--white);
+      font-style: italic; position: relative; z-index: 2; margin-bottom: 28px;
+    }
+    .pr-testimonial-author {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .pr-testimonial-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--primary); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading); font-size: 20px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .pr-testimonial-name { font-size: 16px; font-weight: 700; color: var(--white); }
+    .pr-testimonial-role { font-size: 13px; color: var(--gray-3); margin-top: 2px; }
+
+    /* CTA bar */
+    .pr-cta-bar {
+      background: linear-gradient(135deg, var(--dark-3), var(--dark));
+      border-top: 3px solid var(--primary);
+      padding: 56px 0; text-align: center;
+    }
+    .pr-cta-bar h3 { font-size: 28px; margin-bottom: 12px; }
+    .pr-cta-bar p { color: var(--gray-3); max-width: 520px; margin: 0 auto 28px; }
+    .pr-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Related projects */
+    .pr-related-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition);
+      display: block; text-decoration: none;
+    }
+    .pr-related-card:hover { border-color: rgba(230,57,0,0.25); transform: translateY(-4px); }
+    .pr-related-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .pr-related-body { padding: 22px; }
+    .pr-related-body h4 { font-size: 18px; margin-bottom: 6px; }
+    .pr-related-body p { font-size: 13px; color: var(--gray-3); margin-bottom: 14px; }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">&reg;</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PROJECT HERO -->
+<section class="project-hero" id="heroSection" aria-label="Project hero section">
+  <div class="project-hero-bg" id="prBg"></div>
+  <div class="project-hero-overlay"></div>
+  <div class="container" id="prHeroContent">
+    <!-- Filled by JS -->
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="pr-section" id="overviewSection">
+  <div class="container">
+    <div class="pr-overview-grid">
+      <div class="pr-overview-text fade-in">
+        <div class="label">Project Overview</div>
+        <h3 id="prOverviewTitle">About This Project</h3>
+        <div id="prOverviewBody"></div>
+      </div>
+      <div class="fade-in delay-1">
+        <div class="pr-facts-card" id="prFactsCard">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE OF WORK -->
+<section class="pr-section" id="scopeSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Scope of Work</div>
+      <h2>What We <span class="highlight">Delivered</span></h2>
+    </div>
+    <div class="pr-scope-grid fade-in delay-1" id="prScope"></div>
+  </div>
+</section>
+
+<!-- FLEET DETAILS -->
+<section class="pr-section" id="fleetSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Fleet Deployment</div>
+      <h2>Karts &amp; Equipment</h2>
+    </div>
+    <div class="fade-in delay-1">
+      <div class="pr-fleet-table-wrap">
+        <table class="pr-fleet-table" id="prFleetTable">
+          <!-- Filled by JS -->
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="pr-section" id="timelineSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Project Timeline</div>
+      <h2>From Concept to <span class="highlight">Completion</span></h2>
+    </div>
+    <div class="pr-timeline fade-in delay-1" id="prTimeline"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="pr-section" style="background:var(--dark);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Gallery</div>
+      <h2>Project Photos</h2>
+    </div>
+    <div class="pr-gallery fade-in delay-1" id="prGallery"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="pr-section" id="testimonialSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Client Feedback</div>
+      <h2>What They Said</h2>
+    </div>
+    <div class="pr-testimonial fade-in delay-1" id="prTestimonial">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAR -->
+<div class="pr-cta-bar">
+  <div class="container fade-in">
+    <h3 id="prCtaTitle">Start Your Own Karting Project</h3>
+    <p>Join 500+ operators worldwide who trust VortKart&reg; to deliver world-class karting attractions on time and on budget.</p>
+    <div class="pr-cta-buttons">
+      <a href="contact.html" class="btn btn-primary btn-lg">Get a Free Quote</a>
+      <a href="listings.html" class="btn btn-outline btn-lg">&larr; All Projects</a>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED PROJECTS -->
+<section class="pr-section" style="padding-bottom:120px;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">More Work</div>
+      <h2>Related Projects</h2>
+    </div>
+    <div class="grid-3 fade-in delay-1" id="prRelated"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">&reg;</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions. Factory direct. Globally trusted.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="listings.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Go Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+        <a href="contact.html">Parts &amp; Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+1 (234) 567-890</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>sales@vortkart.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>123 Motorsport Drive,<br>Karting District, CA 90001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart&reg; International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// ============================
+// PROJECT DATA
+// ============================
+const PROJECTS = {
+
+  "speedzone-grand-prix": {
+    name: "SpeedZone Grand Prix",
+    location: "California, USA",
+    country: "USA",
+    category: "Turnkey Outdoor Project",
+    categoryBadge: "Turnkey Project",
+    filterTag: "outdoor",
+    heroImage: "images/proframe-r32/2.jpg",
+    subtitle: "Full turnkey outdoor karting attraction — 850m track, 40 EV-Pro\u00AE karts, pit lanes, grandstand, timing system, and operator training. Delivered in 5 months from groundbreaking to grand opening.",
+    heroStats: [
+      { num: "850m", lbl: "Track Length" },
+      { num: "40", lbl: "EV Karts" },
+      { num: "5mo", lbl: "Timeline" },
+      { num: "$3.2M", lbl: "Project Value" },
+    ],
+    overviewTitle: "A Complete Outdoor Karting Destination",
+    overview: [
+      "SpeedZone Grand Prix is a flagship turnkey project delivered for a private amusement operator in Southern California. The client needed a high-throughput outdoor karting attraction that could handle 400+ drivers per day during peak season while maintaining premium guest experience and safety standards.",
+      "VortKart\u00AE handled every aspect of the project — from initial site survey and track design through fleet manufacturing, timing system installation, staff training, and post-launch support. The 850-meter circuit features 12 corners, a 180-meter main straight, elevation changes of up to 3 meters, and FIA-grade tire barrier safety systems throughout.",
+      "The facility opened to the public in Month 5 and achieved profitability within 90 days of operation. The client has since expanded the fleet twice and added a junior track using VortKart's JuniorSprint\u00AE EV model.",
+    ],
+    facts: [
+      { label: "Project Type", value: "Turnkey Outdoor Track" },
+      { label: "Location", value: "California, USA" },
+      { label: "Track Length", value: "850 meters" },
+      { label: "Fleet Size", value: "40 EV-Pro\u00AE 48" },
+      { label: "Daily Capacity", value: "400+ drivers" },
+      { label: "Timeline", value: "5 months" },
+      { label: "Completion", value: "2025 Q2" },
+      { label: "Project Value", value: "$3.2M USD" },
+    ],
+    scope: [
+      { icon: "map", title: "Track Design & Construction", desc: "850m FIA-spec circuit with 12 corners, elevation changes, drainage, and asphalt paving to motorsport-grade tolerances." },
+      { icon: "truck", title: "Fleet Manufacturing & Delivery", desc: "40 custom-liveried EV-Pro\u00AE 48 electric karts manufactured, tested, and delivered with full spare parts package." },
+      { icon: "flag", title: "Timing & Scoring System", desc: "Professional AMB timing system with digital leaderboard, driver performance printouts, and cloud-based session management." },
+      { icon: "building", title: "Facility Infrastructure", desc: "Pit lane, grid area, spectator grandstand (200 seats), driver briefing room, and maintenance workshop construction." },
+      { icon: "users", title: "Staff Training & Certification", desc: "2-week on-site training program for 12 staff members covering operations, safety, kart maintenance, and emergency procedures." },
+      { icon: "headphones", title: "Post-Launch Support", desc: "12-month on-call technical support, quarterly maintenance visits, and remote fleet monitoring via VortKart Connect\u2122 platform." },
+    ],
+    fleet: [
+      ["EV-Pro\u00AE 48 Electric Kart", "40 units", "Primary rental fleet"],
+      ["JuniorSprint\u00AE EV", "8 units", "Junior track (Phase 2)"],
+      ["AMB Timing Transponders", "48 units", " Kart-mounted"],
+      ["Fast Charge Stations", "6 units", "45-min DC fast charge"],
+      ["Spare Parts Package", "1 set", "2-year maintenance stock"],
+    ],
+    timeline: [
+      { date: "Month 1", title: "Site Survey & Design", desc: "Geotechnical survey, track layout design, permits, and civil engineering plans finalized." },
+      { date: "Month 2", title: "Groundbreaking & Earthworks", desc: "Site clearing, grading, drainage installation, and track bed preparation completed." },
+      { date: "Month 3", title: "Track Paving & Infrastructure", desc: "Asphalt paving, barrier installation, pit lane construction, and facility build-out." },
+      { date: "Month 4", title: "Fleet Delivery & System Install", desc: "40 EV-Pro karts delivered, timing system installed, charging stations commissioned." },
+      { date: "Month 5", title: "Training, Testing & Launch", desc: "Staff training, safety certification, soft-opening test events, and public grand opening." },
+    ],
+    gallery: [
+      "images/proframe-r32/1.jpg",
+      "images/proframe-r32/3.jpg",
+      "images/proframe-r32/4.jpg",
+      "images/proframe-r32/5.jpg",
+      "images/proframe-r32/6.jpg",
+      "images/proframe-r32/7.jpg",
+    ],
+    testimonial: {
+      text: "VortKart handled everything from the first site visit to opening day. The track quality is outstanding, the karts are reliable, and the support team has been exceptional. We hit profitability in under 3 months and are already planning Phase 2.",
+      author: "Michael R.",
+      role: "Owner, SpeedZone Grand Prix",
+      initials: "MR",
+    },
+    related: ["dubai-indoor-dome", "sunpark-gold-coast", "grand-marina-resort"]
+  },
+
+  "grand-marina-resort": {
+    name: "Grand Marina Resort Karting",
+    location: "Costa del Sol, Spain",
+    country: "Spain",
+    category: "Resort Entertainment",
+    categoryBadge: "Resort",
+    filterTag: "resort",
+    heroImage: "images/duratrak-270/8.jpg",
+    subtitle: "20-kart EV fleet integrated into a luxury resort entertainment hub. Delivered with custom livery, full-service maintenance contract, and seamless guest experience integration.",
+    heroStats: [
+      { num: "20", lbl: "EV Karts" },
+      { num: "400m", lbl: "Circuit" },
+      { num: "3mo", lbl: "Timeline" },
+      { num: "5\u2605", lbl: "Resort Rating" },
+    ],
+    overviewTitle: "Premium Karting for a Luxury Destination",
+    overview: [
+      "Grand Marina Resort is a 5-star luxury resort on Spain's Costa del Sol. The management team wanted to add a family-friendly adrenaline attraction that would appeal to resort guests aged 16+ while maintaining the premium aesthetic of the property.",
+      "VortKart\u00AE designed a 400-meter flowing circuit that winds through the resort's landscaped grounds, utilizing existing pathways and green spaces to minimize construction impact. All 20 EV-Pro\u00AE karts were delivered with custom livery matching the resort's brand colors.",
+      "A full-service maintenance contract ensures VortKart technicians handle all servicing, battery management, and safety inspections. The attraction has become one of the resort's highest-rated guest activities, consistently scoring 4.8+ in guest satisfaction surveys.",
+    ],
+    facts: [
+      { label: "Project Type", value: "Resort Attraction" },
+      { label: "Location", value: "Costa del Sol, Spain" },
+      { label: "Track Length", value: "400 meters" },
+      { label: "Fleet Size", value: "20 EV-Pro\u00AE 48" },
+      { label: "Custom Livery", value: "Resort brand colors" },
+      { label: "Timeline", value: "3 months" },
+      { label: "Completion", value: "2025 Q1" },
+      { label: "Service Model", value: "Full-service contract" },
+    ],
+    scope: [
+      { icon: "map", title: "Scenic Track Design", desc: "400m flowing circuit integrated into existing resort landscaping with minimal environmental disruption." },
+      { icon: "truck", title: "Custom-Liveried Fleet", desc: "20 EV-Pro karts painted in resort brand colors with custom decals and premium seat materials." },
+      { icon: "shield-check", title: "Safety Integration", desc: "Tire barrier system, trackside fencing, and guest safety briefing video produced in 4 languages." },
+      { icon: "headphones", title: "Full-Service Maintenance", desc: "On-site VortKart technician visits bi-weekly. Battery health monitoring, brake checks, tire rotation, and software updates." },
+      { icon: "credit-card", title: "Resort Booking Integration", desc: "Karting reservations integrated into resort's guest app and concierge booking system for seamless guest experience." },
+      { icon: "sun", title: "Premium Guest Experience", desc: "Helmet liners, driving suits in resort colors, and podium photo package for every guest session." },
+    ],
+    fleet: [
+      ["EV-Pro\u00AE 48 (Custom Livery)", "20 units", "Resort-branded"],
+      ["Premium Helmets", "24 units", "Stilo brand"],
+      ["Driving Suits", "24 units", "Resort-color suits"],
+      ["Timing Display", "1 unit", "Trackside LED board"],
+      ["Spare Parts Package", "1 set", "1-year maintenance"],
+    ],
+    timeline: [
+      { date: "Week 1-2", title: "Design & Branding", desc: "Track layout finalized, custom livery design approved, and guest experience workflow defined." },
+      { date: "Week 3-8", title: "Construction & Manufacturing", desc: "Track construction, barrier installation, and simultaneous kart manufacturing with custom paint." },
+      { date: "Week 9-10", title: "Fleet Delivery & Commissioning", desc: "20 custom karts delivered, tested, and commissioned. Booking system integrated with resort app." },
+      { date: "Week 11-12", title: "Staff Training & Launch", desc: "Resort staff trained on operations and safety. Soft launch with VIP guests followed by public opening." },
+    ],
+    gallery: [
+      "images/duratrak-270/1.jpg",
+      "images/duratrak-270/2.jpg",
+      "images/duratrak-270/3.jpg",
+      "images/duratrak-270/4.jpg",
+      "images/duratrak-270/5.jpg",
+      "images/duratrak-270/6.jpg",
+    ],
+    testimonial: {
+      text: "Our guests absolutely love the karting experience. VortKart understood the luxury standard we needed and delivered a premium product that matches our brand perfectly. The full-service maintenance means we never have to worry about downtime.",
+      author: "Elena V.",
+      role: "Guest Experience Director, Grand Marina Resort",
+      initials: "EV",
+    },
+    related: ["asiapac-family-karting", "speedzone-grand-prix", "apex-corporate-london"]
+  },
+
+  "dubai-indoor-dome": {
+    name: "Dubai Indoor Karting Dome",
+    location: "Dubai, UAE",
+    country: "UAE",
+    category: "Indoor Track Conversion",
+    categoryBadge: "Indoor Track",
+    filterTag: "indoor",
+    heroImage: "images/ev-pro-48/1.jpg",
+    subtitle: "Indoor warehouse-to-karting conversion — 600m circuit design, 30 EV-Max\u00AE karts, multi-level spectator gallery, and full smart timing system in the heart of Dubai.",
+    heroStats: [
+      { num: "600m", lbl: "Circuit" },
+      { num: "30", lbl: "EV-Max Karts" },
+      { num: "8mo", lbl: "Timeline" },
+      { num: "2,800m\u00B2", lbl: "Venue Area" },
+    ],
+    overviewTitle: "Transforming Warehouse Space Into a Karting Cathedral",
+    overview: [
+      "The client, a Dubai-based entertainment group, acquired a 2,800m\u00B2 former logistics warehouse and wanted to convert it into a premium indoor karting venue. The challenge was maximizing track length within the building footprint while creating an exciting, multi-level spectator experience.",
+      "VortKart\u00AE's track design team created a 600-meter, two-level circuit that utilizes the warehouse's 9-meter ceiling height. The upper level features a glass-walled spectator gallery, VIP briefing room, and a café overlooking the track. The lower level houses the pit area, grid, and maintenance workshop.",
+      "The venue operates 30 EV-Max\u00AE 72 high-performance electric karts — the flagship model delivering 65 km/h top speeds with zero emissions, which is critical for indoor air quality. The smart timing system provides real-time leaderboards, driver performance analytics, and social media-ready lap time graphics.",
+    ],
+    facts: [
+      { label: "Project Type", value: "Indoor Warehouse Conversion" },
+      { label: "Location", value: "Dubai, UAE" },
+      { label: "Venue Area", value: "2,800 m\u00B2" },
+      { label: "Track Length", value: "600 meters (2-level)" },
+      { label: "Fleet Size", value: "30 EV-Max\u00AE 72" },
+      { label: "Timeline", value: "8 months" },
+      { label: "Completion", value: "2024 Q4" },
+      { label: "Air System", value: "Industrial ventilation" },
+    ],
+    scope: [
+      { icon: "map", title: "Two-Level Track Design", desc: "600m multi-level circuit utilizing warehouse height. Includes a flyover section and technical hairpin complex." },
+      { icon: "building", title: "Building Conversion", desc: "Warehouse fit-out: industrial ventilation, fire suppression, sound insulation, LED track lighting, and flooring." },
+      { icon: "truck", title: "Premium Fleet Deployment", desc: "30 EV-Max\u00AE 72 karts with DC fast-charging infrastructure capable of 22-minute turnaround between sessions." },
+      { icon: "cpu", title: "Smart Timing & Analytics", desc: "Real-time leaderboard, driver performance analytics, live race commentary system, and social media integration." },
+      { icon: "users", title: "Multi-Level Spectator Gallery", desc: "Glass-walled upper gallery with café, VIP briefing room, and podium ceremony area overlooking the track." },
+      { icon: "wind", title: "Air Quality Management", desc: "Industrial-grade ventilation system with CO and particulate sensors ensuring safe indoor air quality at all times." },
+    ],
+    fleet: [
+      ["EV-Max\u00AE 72 (High-Performance)", "30 units", "72V electric"],
+      ["DC Fast Charge Stations", "8 units", "22-min charge"],
+      ["AMB Timing Transponders", "32 units", "Kart-mounted"],
+      ["LED Leaderboard", "2 units", "Trackside + gallery"],
+      ["Spare Parts Package", "1 set", "2-year stock"],
+    ],
+    timeline: [
+      { date: "Month 1-2", title: "Design & Permits", desc: "Track layout, structural engineering, building permits, and ventilation system design finalized." },
+      { date: "Month 3-5", title: "Building Conversion", desc: "Warehouse fit-out, flooring, ventilation, fire systems, electrical, and track surface preparation." },
+      { date: "Month 6", title: "Track Construction", desc: "Two-level track build, barrier system installation, pit area, and grid construction completed." },
+      { date: "Month 7", title: "Fleet & Systems", desc: "30 EV-Max karts delivered, charging stations installed, timing system commissioned and tested." },
+      { date: "Month 8", title: "Fit-Out & Launch", desc: "Gallery fit-out, café installation, staff training, soft launch, and grand opening event." },
+    ],
+    gallery: [
+      "images/ev-pro-48/2.jpg",
+      "images/ev-pro-48/3.jpg",
+      "images/ev-pro-48/4.jpg",
+      "images/ev-pro-48/5.jpg",
+      "images/ev-pro-48/6.jpg",
+      "images/proframe-r32/8.jpg",
+    ],
+    testimonial: {
+      text: "Converting a warehouse into a karting venue was ambitious, but VortKart made it look easy. The two-level track is genuinely unique in the region, and the EV-Max karts deliver serious performance. We're now the #1 rated indoor activity in Dubai.",
+      author: "Ahmed K.",
+      role: "Operations Director, Dubai Indoor Karting Dome",
+      initials: "AK",
+    },
+    related: ["apex-corporate-london", "speedzone-grand-prix", "asiapac-family-karting"]
+  },
+
+  "asiapac-family-karting": {
+    name: "AsiaPac Family Karting Center",
+    location: "Singapore",
+    country: "Singapore",
+    category: "Family Entertainment Center",
+    categoryBadge: "FEC",
+    filterTag: "fec",
+    heroImage: "images/kids-racing/1.jpg",
+    subtitle: "Mixed adult and junior fleet for a multi-attraction FEC. Dual-track layout with separate junior and adult circuits. Complete operational setup including staff training and maintenance program.",
+    heroStats: [
+      { num: "25", lbl: "Adult Karts" },
+      { num: "15", lbl: "Junior Karts" },
+      { num: "2", lbl: "Tracks" },
+      { num: "4mo", lbl: "Timeline" },
+    ],
+    overviewTitle: "Dual-Track Family Entertainment Destination",
+    overview: [
+      "AsiaPac Family Karting Center is part of a larger family entertainment complex in Singapore. The operator needed a karting attraction that could serve both adults and children safely within the same venue, without compromising the experience for either group.",
+      "VortKart\u00AE designed a dual-track layout: a 500-meter adult circuit for the EV-Pro\u00AE 48 fleet (25 karts) and a separate 200-meter junior circuit for the JuniorSprint\u00AE EV fleet (15 karts). The tracks share a common pit and staging area but are completely separated by barriers, allowing simultaneous operation.",
+      "The complete operational package included staff training for 16 employees, a full maintenance program with quarterly VortKart technician visits, and a point-of-sale system integrated with the FEC's main ticketing platform. The karting center has become the anchor attraction of the complex.",
+    ],
+    facts: [
+      { label: "Project Type", value: "FEC Karting Attraction" },
+      { label: "Location", value: "Singapore" },
+      { label: "Adult Track", value: "500 meters" },
+      { label: "Junior Track", value: "200 meters" },
+      { label: "Adult Fleet", value: "25 EV-Pro\u00AE 48" },
+      { label: "Junior Fleet", value: "15 JuniorSprint\u00AE EV" },
+      { label: "Timeline", value: "4 months" },
+      { label: "Completion", value: "2025 Q3" },
+    ],
+    scope: [
+      { icon: "map", title: "Dual-Track Layout", desc: "500m adult circuit + 200m junior circuit sharing a common pit area. Full barrier separation for simultaneous safe operation." },
+      { icon: "truck", title: "Mixed Fleet Deployment", desc: "25 EV-Pro adult karts + 15 JuniorSprint junior karts with age-appropriate speed limits and safety features." },
+      { icon: "shield-check", title: "Safety Systems", desc: "Remote emergency stop for both tracks, RF-controlled speed limiting, and age-verified kart activation system." },
+      { icon: "credit-card", title: "POS & Ticketing Integration", desc: "Karting bookings integrated with FEC's main ticketing platform. Family packages and combo deals automated." },
+      { icon: "users", title: "Staff Training Program", desc: "16 staff trained across both tracks: operations, junior safety protocols, kart maintenance, and emergency response." },
+      { icon: "headphones", title: "Quarterly Maintenance", desc: "VortKart technician visits every 3 months for comprehensive fleet inspection, battery health check, and software updates." },
+    ],
+    fleet: [
+      ["EV-Pro\u00AE 48 (Adult Fleet)", "25 units", "50 km/h"],
+      ["JuniorSprint\u00AE EV (Junior)", "15 units", "25 km/h limited"],
+      ["RF Speed Control System", "2 sets", "Per-track control"],
+      ["Timing System", "2 units", "Adult + Junior"],
+      ["Spare Parts Package", "1 set", "18-month stock"],
+    ],
+    timeline: [
+      { date: "Month 1", title: "Design & Site Prep", desc: "Dual-track layout finalized, site preparation, drainage, and flooring completed." },
+      { date: "Month 2", title: "Track Construction", desc: "Both tracks constructed, barriers installed, pit area and staging zone built." },
+      { date: "Month 3", title: "Fleet Delivery & Systems", desc: "40 karts delivered (25 adult + 15 junior), timing systems and POS integration completed." },
+      { date: "Month 4", title: "Training & Launch", desc: "16 staff trained, safety certifications, soft launch with families, and grand opening." },
+    ],
+    gallery: [
+      "images/kids-racing/2.jpg",
+      "images/kids-racing/3.jpg",
+      "images/kids-racing/4.jpg",
+      "images/kids-racing/5.jpg",
+      "images/kids-racing/6.jpg",
+      "images/kids-racing/7.jpg",
+    ],
+    testimonial: {
+      text: "The dual-track concept was brilliant. Parents can race on the adult track while their kids are on the junior circuit, and both feel like a real racing experience. The VortKart team understood our family entertainment model perfectly.",
+      author: "Lim S.T.",
+      role: "General Manager, AsiaPac Family Entertainment",
+      initials: "LT",
+    },
+    related: ["grand-marina-resort", "sunpark-gold-coast", "dubai-indoor-dome"]
+  },
+
+  "sunpark-gold-coast": {
+    name: "SunPark Karting Experience",
+    location: "Gold Coast, Australia",
+    country: "Australia",
+    category: "Amusement Park Attraction",
+    categoryBadge: "Amusement Park",
+    filterTag: "outdoor",
+    heroImage: "images/duratrak-160/4.jpg",
+    subtitle: "35-kart mixed gas fleet for a high-volume theme park attraction. Custom livery with park branding. Ongoing maintenance contract in place since opening.",
+    heroStats: [
+      { num: "35", lbl: "Gas Karts" },
+      { num: "700m", lbl: "Track" },
+      { num: "6mo", lbl: "Timeline" },
+      { num: "600+", lbl: "Daily Drivers" },
+    ],
+    overviewTitle: "High-Volume Theme Park Karting",
+    overview: [
+      "SunPark is one of Australia's most visited theme parks on the Gold Coast. They needed a karting attraction that could handle extreme peak-season throughput of 600+ drivers per day while delivering the raw, visceral experience that gas-powered karts provide.",
+      "VortKart\u00AE deployed 35 DuraTrak\u00AE 270 gas-powered karts with custom park-branded livery. The 700-meter outdoor track was designed for high throughput with a wide pit lane enabling rapid kart turnaround. An automated queue management system minimizes wait times during peak periods.",
+      "The ongoing maintenance contract includes a full-time on-site VortKart technician during peak season, ensuring maximum fleet availability. The attraction consistently achieves 95%+ fleet uptime and has become one of the park's most popular paid attractions.",
+    ],
+    facts: [
+      { label: "Project Type", value: "Theme Park Attraction" },
+      { label: "Location", value: "Gold Coast, Australia" },
+      { label: "Track Length", value: "700 meters" },
+      { label: "Fleet Size", value: "35 DuraTrak\u00AE 270" },
+      { label: "Daily Capacity", value: "600+ drivers" },
+      { label: "Timeline", value: "6 months" },
+      { label: "Completion", value: "2024 Q3" },
+      { label: "Uptime", value: "95%+ fleet availability" },
+    ],
+    scope: [
+      { icon: "map", title: "High-Throughput Track Design", desc: "700m track optimized for rapid kart turnaround with wide pit lane, automated grid, and queue management system." },
+      { icon: "truck", title: "Gas Fleet with Custom Livery", desc: "35 DuraTrak\u00AE 270 karts with park-branded livery, adjustable speed governors, and heavy-duty construction." },
+      { icon: "fuel", title: "Refueling Infrastructure", desc: "Automated fuel dispensing system with safety interlocks, vapor recovery, and spill containment for fast turnaround." },
+      { icon: "users", title: "Peak Season Staffing", desc: "Full-time on-site VortKart technician during peak season. Training for 20 park staff on operations and basic maintenance." },
+      { icon: "bar-chart", title: "Fleet Management System", desc: "Real-time kart tracking, fuel level monitoring, maintenance scheduling, and throughput analytics dashboard." },
+      { icon: "shield-check", title: "Safety Compliance", desc: "Full compliance with Australian amusement ride standards. Annual safety audits and quarterly barrier inspections." },
+    ],
+    fleet: [
+      ["DuraTrak\u00AE 270 (Gas)", "35 units", "75 km/h governed"],
+      ["Custom Park Livery", "35 sets", "Full vinyl wrap"],
+      ["Fuel Dispensing System", "1 unit", "Automated with safety"],
+      ["Queue Management System", "1 unit", "Digital + RFID"],
+      ["Spare Parts Package", "2 sets", "2-year maintenance"],
+    ],
+    timeline: [
+      { date: "Month 1-2", title: "Design & Permits", desc: "Track layout, environmental assessments, Australian safety compliance, and construction permits." },
+      { date: "Month 3-4", title: "Construction", desc: "Track paving, barrier system, pit lane, refueling station, and queue infrastructure built." },
+      { date: "Month 5", title: "Fleet & Systems", desc: "35 gas karts delivered with custom livery, fuel system commissioned, fleet management software installed." },
+      { date: "Month 6", title: "Training & Launch", desc: "20 staff trained, safety certifications, test operations, and public launch with park-wide promotion." },
+    ],
+    gallery: [
+      "images/duratrak-160/1.jpg",
+      "images/duratrak-160/2.jpg",
+      "images/duratrak-160/3.jpg",
+      "images/duratrak-160/5.jpg",
+      "images/duratrak-160/6.jpg",
+      "images/duratrak-160/7.jpg",
+    ],
+    testimonial: {
+      text: "During peak season we run 600+ drivers a day through this attraction. The DuraTrak karts handle the abuse without skipping a beat, and having a VortKart technician on-site means we never miss a session. It's our highest-grossing paid attraction.",
+      author: "James T.",
+      role: "Attractions Manager, SunPark Gold Coast",
+      initials: "JT",
+    },
+    related: ["speedzone-grand-prix", "asiapac-family-karting", "grand-marina-resort"]
+  },
+
+  "apex-corporate-london": {
+    name: "Apex Corporate Karting",
+    location: "London, UK",
+    country: "UK",
+    category: "Corporate Entertainment Venue",
+    categoryBadge: "Corporate Venue",
+    filterTag: "indoor",
+    heroImage: "images/dual-rider/1.jpg",
+    subtitle: "Premium indoor corporate karting venue with 20 EV-Max\u00AE karts, VIP briefing room, live race commentary, and professional lap timing portal. London's top-rated corporate team building venue.",
+    heroStats: [
+      { num: "20", lbl: "EV-Max Karts" },
+      { num: "480m", lbl: "Circuit" },
+      { num: "5mo", lbl: "Timeline" },
+      { num: "#1", lbl: "Corporate Venue" },
+    ],
+    overviewTitle: "London's Premier Corporate Racing Experience",
+    overview: [
+      "Apex Corporate Karting is a purpose-built venue in central London designed specifically for corporate events, team building, and client entertainment. The operator needed a premium experience that would impress Fortune 500 clients while operating profitably in an expensive urban location.",
+      "VortKart\u00AE delivered 20 EV-Max\u00AE 72 high-performance electric karts — chosen for their instant torque, premium feel, and zero emissions which eliminated the need for expensive exhaust ventilation in the city-center location. The 480m indoor track features a challenging layout with a technical midsection and a fast sweeping final corner.",
+      "The venue includes a VIP briefing room with trackside viewing, a premium bar and catering area, live race commentary with professional commentators, and a cloud-based lap timing portal where corporate clients can access performance data, team rankings, and branded leaderboards after their events.",
+    ],
+    facts: [
+      { label: "Project Type", value: "Corporate Karting Venue" },
+      { label: "Location", value: "London, UK" },
+      { label: "Track Length", value: "480 meters (indoor)" },
+      { label: "Fleet Size", value: "20 EV-Max\u00AE 72" },
+      { label: "Venue Size", value: "1,800 m\u00B2" },
+      { label: "Timeline", value: "5 months" },
+      { label: "Completion", value: "2025 Q2" },
+      { label: "Rating", value: "#1 Corporate Activity" },
+    ],
+    scope: [
+      { icon: "map", title: "Technical Indoor Circuit", desc: "480m indoor track with challenging layout, smooth epoxy surface, and LED track lighting for premium visual experience." },
+      { icon: "truck", title: "Premium EV Fleet", desc: "20 EV-Max\u00AE 72 karts with active sound synthesis, TFT telemetry displays, and custom Apex-branded livery." },
+      { icon: "building", title: "VIP Hospitality", desc: "Trackside VIP briefing room, premium bar area, catering kitchen, and corporate branding display zones." },
+      { icon: "cpu", title: "Professional Timing & Commentary", desc: "Live race commentary system, professional timing with cloud portal, and custom-branded leaderboards for corporate clients." },
+      { icon: "users", title: "Corporate Event Staffing", desc: "Training for 14 staff including race directors, commentators, and event coordinators. Full corporate event playbook." },
+      { icon: "headphones", title: "Cloud Performance Portal", desc: "Post-event portal where clients access lap times, team rankings, performance heat maps, and branded certificates." },
+    ],
+    fleet: [
+      ["EV-Max\u00AE 72 (Premium)", "20 units", "65 km/h"],
+      ["Custom Apex Livery", "20 sets", "Matte finish"],
+      ["Professional Timing System", "1 unit", "Cloud-connected"],
+      ["Commentary System", "1 unit", "Pro broadcast kit"],
+      ["Spare Parts Package", "1 set", "2-year stock"],
+    ],
+    timeline: [
+      { date: "Month 1", title: "Design & Branding", desc: "Track layout, interior design concept, Apex brand identity, and corporate event workflow designed." },
+      { date: "Month 2-3", title: "Venue Fit-Out", desc: "Building conversion, track surface, lighting, VIP room, bar area, and electrical infrastructure." },
+      { date: "Month 4", title: "Fleet & Systems", desc: "20 EV-Max karts delivered, timing and commentary systems installed, cloud portal configured." },
+      { date: "Month 5", title: "Training & Launch", desc: "14 staff trained as race directors and commentators. Corporate soft-launch events and public opening." },
+    ],
+    gallery: [
+      "images/dual-rider/2.jpg",
+      "images/dual-rider/3.jpg",
+      "images/dual-rider/4.jpg",
+      "images/dual-rider/5.jpg",
+      "images/dual-rider/6.jpg",
+      "images/ev-max-72/1.jpg",
+    ],
+    testimonial: {
+      text: "We host Fortune 500 clients every week and the bar is incredibly high. VortKart delivered a venue that genuinely impresses. The EV-Max karts are thrilling, the timing portal is a huge value-add for corporate clients, and the whole experience feels premium end-to-end.",
+      author: "Sarah M.",
+      role: "Managing Director, Apex Corporate Karting",
+      initials: "SM",
+    },
+    related: ["dubai-indoor-dome", "grand-marina-resort", "speedzone-grand-prix"]
+  }
+
+};
+
+// Icon SVG map for scope cards
+const SCOPE_ICONS = {
+  map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>',
+  truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
+  flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
+  headphones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>',
+  'shield-check': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  'credit-card': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>',
+  fuel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="22" x2="15" y2="22"/><line x1="4" y1="9" x2="14" y2="9"/><path d="M14 22V4a2 2 0 00-2-2H6a2 2 0 00-2 2v18"/><path d="M14 13h2a2 2 0 012 2v2a2 2 0 002 2 2-2 0 002-2V9.83a2 2 0 00-.59-1.42L18 5"/></svg>',
+  'bar-chart': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>',
+  cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>',
+  wind: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/></svg>',
+  sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+};
+
+// ============================
+// RENDER LOGIC
+// ============================
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const project = id ? PROJECTS[id] : null;
+
+  if (!project) {
+    document.getElementById("prHeroContent").innerHTML =
+      '<div style="text-align:center;padding:80px 0;"><h2 style="font-size:32px;">Project Not Found</h2><p style="color:var(--gray-3);margin-top:12px;">The project you\'re looking for doesn\'t exist or has been moved.</p><br><a href="listings.html" class="btn btn-primary">&larr; View All Projects</a></div>';
+    // Hide all sections
+    ['overviewSection','scopeSection','fleetSection','timelineSection','testimonialSection'].forEach(sid => {
+      const el = document.getElementById(sid);
+      if (el) el.style.display = 'none';
+    });
+    return;
+  }
+
+  // Update page title
+  document.title = `VortKart\u00AE | ${project.name} \u2014 Project Portfolio`;
+
+  // ---- Hero ----
+  document.getElementById("prBg").style.backgroundImage = `url('${project.heroImage}')`;
+  document.getElementById("prHeroContent").innerHTML = `
+    <div class="pr-breadcrumb">
+      <a href="index.html">Home</a>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      <a href="listings.html">Portfolio</a>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      <span>${project.name}</span>
+    </div>
+    <div class="pr-meta-row">
+      <span class="pr-category-badge">${project.categoryBadge}</span>
+      <span class="pr-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        ${project.location}
+      </span>
+    </div>
+    <h1 class="pr-title">${project.name}</h1>
+    <p class="pr-subtitle">${project.subtitle}</p>
+    <div class="pr-hero-stats">
+      ${project.heroStats.map(s => `
+        <div class="pr-hero-stat">
+          <div class="num">${s.num}</div>
+          <div class="lbl">${s.lbl}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  // ---- Overview ----
+  document.getElementById("prOverviewTitle").textContent = project.overviewTitle;
+  document.getElementById("prOverviewBody").innerHTML = project.overview.map(p => `<p>${p}</p>`).join("");
+
+  // ---- Facts Card ----
+  document.getElementById("prFactsCard").innerHTML = `
+    <h4>Project Facts</h4>
+    ${project.facts.map(f => `
+      <div class="pr-fact-row">
+        <span class="pr-fact-label">${f.label}</span>
+        <span class="pr-fact-value">${f.value}</span>
+      </div>
+    `).join("")}
+  `;
+
+  // ---- Scope of Work ----
+  document.getElementById("prScope").innerHTML = project.scope.map(s => `
+    <div class="pr-scope-card">
+      <div class="pr-scope-icon">${SCOPE_ICONS[s.icon] || SCOPE_ICONS.map}</div>
+      <h4>${s.title}</h4>
+      <p>${s.desc}</p>
+    </div>
+  `).join("");
+
+  // ---- Fleet Table ----
+  document.getElementById("prFleetTable").innerHTML = `
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Quantity</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${project.fleet.map(f => `
+        <tr>
+          <td>${f[0]}</td>
+          <td class="qty">${f[1]}</td>
+          <td>${f[2]}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+
+  // ---- Timeline ----
+  document.getElementById("prTimeline").innerHTML = project.timeline.map(t => `
+    <div class="pr-timeline-item">
+      <div class="pr-timeline-dot"></div>
+      <div class="pr-timeline-date">${t.date}</div>
+      <h4>${t.title}</h4>
+      <p>${t.desc}</p>
+    </div>
+  `).join("");
+
+  // ---- Gallery ----
+  document.getElementById("prGallery").innerHTML = project.gallery.map(src => `
+    <img src="${src}" alt="${project.name} project photo" loading="lazy" />
+  `).join("");
+
+  // ---- Testimonial ----
+  document.getElementById("prTestimonial").innerHTML = `
+    <p class="pr-testimonial-text">${project.testimonial.text}</p>
+    <div class="pr-testimonial-author">
+      <div class="pr-testimonial-avatar">${project.testimonial.initials}</div>
+      <div>
+        <div class="pr-testimonial-name">${project.testimonial.author}</div>
+        <div class="pr-testimonial-role">${project.testimonial.role}</div>
+      </div>
+    </div>
+  `;
+
+  // ---- CTA Title ----
+  document.getElementById("prCtaTitle").textContent = `Start Your Own Project Like ${project.name}`;
+
+  // ---- Related Projects ----
+  document.getElementById("prRelated").innerHTML = project.related.map(rid => {
+    const rp = PROJECTS[rid];
+    if (!rp) return '';
+    return `
+      <a href="project.html?id=${rid}" class="pr-related-card">
+        <img src="${rp.heroImage}" alt="${rp.name}" loading="lazy" />
+        <div class="pr-related-body">
+          <h4>${rp.name}</h4>
+          <p>${rp.location} &mdash; ${rp.subtitle.substring(0, 100)}...</p>
+          <span class="btn btn-outline" style="margin-top:12px;padding:8px 18px;font-size:12px;">View Project &rarr;</span>
+        </div>
+      </a>`;
+  }).join("");
+
+})();
+</script>
+</body>
+</html>

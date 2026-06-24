@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact VortKart® | Request a Quote for Commercial Go Karts & Track Design</title>
+  <meta name="description" content="Contact VortKart® to request a quote for commercial go karts, racing chassis, track design, or turnkey karting solutions. We respond within 24 hours." />
+  <meta name="keywords" content="contact go kart manufacturer, request go kart quote, karting enquiry, go kart supplier contact" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- CONTACT-SPECIFIC ---- */
+    .contact-main { background: var(--dark); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;
+    }
+    .contact-info { position: sticky; top: calc(var(--nav-height) + 32px); }
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info > p { margin-bottom: 40px; }
+
+    /* Contact items */
+    .contact-block { margin-bottom: 32px; }
+    .contact-block-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; background: var(--dark-3); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.07); margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .contact-block-item:hover { border-color: rgba(230,57,0,0.3); }
+    .contact-item-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: rgba(230,57,0,0.1); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon svg { width: 20px; height: 20px; color: var(--primary); }
+    .contact-item-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray-3); margin-bottom: 4px;
+    }
+    .contact-item-value { font-size: 15px; font-weight: 600; color: var(--white); }
+    .contact-item-sub { font-size: 13px; color: var(--gray-3); margin-top: 2px; }
+
+    /* Hours */
+    .hours-card {
+      background: var(--dark-3); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.07); padding: 24px;
+    }
+    .hours-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 16px;
+    }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px; color: var(--gray-4);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row strong { color: var(--white); }
+    .hours-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: #22c55e; margin-top: 12px;
+    }
+    .hours-status.closed { color: #f87171; }
+    .hours-status::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Social links */
+    .social-links-row {
+      display: flex; gap: 10px; margin-top: 24px;
+    }
+    .social-link-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px; background: var(--dark-3); border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.08); font-size: 12px; font-weight: 600;
+      color: var(--gray-4); text-transform: uppercase; letter-spacing: 0.06em;
+      transition: var(--transition);
+    }
+    .social-link-btn:hover { background: var(--dark-4); border-color: rgba(255,255,255,0.15); color: var(--white); }
+    .social-link-btn svg { width: 16px; height: 16px; }
+
+    /* Form panel */
+    .form-panel {
+      background: var(--dark-3); border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.08); padding: 48px;
+    }
+    .form-panel h3 { font-size: 28px; margin-bottom: 8px; }
+    .form-panel > p { font-size: 15px; margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%; padding: 18px; border-radius: var(--radius-md);
+      background: var(--primary); color: var(--white);
+      font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(230,57,0,0.4); }
+    .form-submit svg { width: 18px; height: 18px; }
+    .form-footer { margin-top: 16px; font-size: 13px; color: var(--gray-3); text-align: center; }
+    .form-footer svg { width: 14px; height: 14px; vertical-align: -2px; color: var(--primary); margin-right: 4px; }
+
+    /* Map placeholder */
+    .map-section { background: var(--dark-2); }
+    .map-container {
+      border-radius: var(--radius-xl); overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      height: 400px; position: relative;
+      background: var(--dark-3);
+    }
+    .map-container iframe { width: 100%; height: 100%; border: none; filter: grayscale(80%) invert(90%) hue-rotate(180deg); }
+    .map-overlay-info {
+      position: absolute; top: 24px; left: 24px;
+      background: var(--dark-2); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 24px; max-width: 280px;
+    }
+    .map-overlay-info h4 { font-size: 16px; margin-bottom: 8px; }
+    .map-overlay-info p { font-size: 13px; color: var(--gray-3); }
+    .map-overlay-info a {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary);
+    }
+
+    /* Response promise strip */
+    .response-promise {
+      background: rgba(230,57,0,0.06); border: 1px solid rgba(230,57,0,0.15);
+      border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 32px;
+      display: flex; gap: 16px; align-items: center;
+    }
+    .response-promise svg { width: 28px; height: 28px; color: var(--primary); flex-shrink: 0; }
+    .response-promise p { font-size: 14px; margin: 0; }
+    .response-promise strong { color: var(--white); }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Contact page hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=1600&q=80')" role="img" aria-label="Go kart manufacturing workshop"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Contact</span>
+      </nav>
+      <div class="label">Let's Talk</div>
+      <h1>Get Your <span class="highlight">Free</span><br>Quote Today</h1>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT MAIN -->
+<section class="section contact-main" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: Info -->
+      <div class="contact-info fade-in">
+        <div class="label">Reach Us</div>
+        <h2 id="contact-heading">We're Ready<br>to <span class="highlight">Help</span></h2>
+        <p>Whether you're planning a new installation or expanding your existing fleet, our team is standing by to give you a tailored recommendation and detailed quote.</p>
+
+        <div class="response-promise" role="note" aria-label="Response time commitment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <p><strong>We guarantee a response within 24 hours</strong> on every enquiry — often within just a few hours during business hours.</p>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Phone / WhatsApp</div>
+              <div class="contact-item-value"><a href="tel:+1234567890" style="color:inherit;">+1 (234) 567-890</a></div>
+              <div class="contact-item-sub">Available Mon–Fri, 8am–7pm EST</div>
+            </div>
+          </div>
+          <div class="contact-block-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value"><a href="mailto:sales@vortkart.com" style="color:inherit;">sales@vortkart.com</a></div>
+              <div class="contact-item-sub">Quote requests & general enquiries</div>
+            </div>
+          </div>
+          <div class="contact-block-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Headquarters</div>
+              <div class="contact-item-value">123 Motorsport Drive</div>
+              <div class="contact-item-sub">Karting District, Los Angeles, CA 90001, USA</div>
+            </div>
+          </div>
+          <div class="contact-block-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Technical Support</div>
+              <div class="contact-item-value"><a href="mailto:support@vortkart.com" style="color:inherit;">support@vortkart.com</a></div>
+              <div class="contact-item-sub">For existing clients — spare parts & service</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Office Hours -->
+        <div class="hours-card" role="complementary" aria-label="Office hours">
+          <div class="hours-title">Office Hours</div>
+          <div class="hours-row"><span>Monday – Friday</span><strong>8:00 AM – 7:00 PM EST</strong></div>
+          <div class="hours-row"><span>Saturday</span><strong>9:00 AM – 3:00 PM EST</strong></div>
+          <div class="hours-row"><span>Sunday</span><strong>Emergency Support Only</strong></div>
+          <div class="hours-status" aria-label="Currently open">Currently Open</div>
+        </div>
+
+        <!-- Social links -->
+        <div class="social-links-row" aria-label="Social media channels">
+          <a href="#" class="social-link-btn" aria-label="Follow on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            FB
+          </a>
+          <a href="#" class="social-link-btn" aria-label="Follow on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+            IG
+          </a>
+          <a href="#" class="social-link-btn" aria-label="Connect on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LI
+          </a>
+          <a href="#" class="social-link-btn" aria-label="Subscribe on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg>
+            YT
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="form-panel fade-in delay-2">
+        <h3>Send Us a <span class="highlight">Message</span></h3>
+        <p>Fill in the form below and our team will prepare a tailored quote or recommendation for your project.</p>
+        <form id="contactForm" novalidate aria-label="Contact and quote request form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name <span style="color:var(--primary)">*</span></label>
+              <input type="text" id="firstName" name="firstName" class="form-control" placeholder="John" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name <span style="color:var(--primary)">*</span></label>
+              <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Smith" required autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address <span style="color:var(--primary)">*</span></label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="john@company.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp</label>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (234) 567-890" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company">Company / Venue Name</label>
+            <input type="text" id="company" name="company" class="form-control" placeholder="Your business name" autocomplete="organization" />
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" class="form-control" placeholder="United States" autocomplete="country-name" />
+          </div>
+          <div class="form-group">
+            <label for="interest">I'm Interested In <span style="color:var(--primary)">*</span></label>
+            <select id="interest" name="interest" class="form-control" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option value="commercial-karts">Commercial Go Karts (Rental Fleet)</option>
+              <option value="racing-chassis">Racing Kart Chassis</option>
+              <option value="track-design">Go Kart Track Design</option>
+              <option value="turnkey">Full Turnkey Karting Attraction</option>
+              <option value="parts">Spare Parts & Maintenance</option>
+              <option value="distributor">Distributor Partnership</option>
+              <option value="other">Other / General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="kart-qty">Approximate Kart Quantity</label>
+            <select id="kart-qty" name="kart-qty" class="form-control">
+              <option value="" disabled selected>Select quantity range...</option>
+              <option value="1-5">1 – 5 karts</option>
+              <option value="5-10">5 – 10 karts</option>
+              <option value="10-20">10 – 20 karts</option>
+              <option value="20-50">20 – 50 karts</option>
+              <option value="50+">50+ karts</option>
+              <option value="tbd">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Project Details / Message <span style="color:var(--primary)">*</span></label>
+            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us about your project — venue type, site dimensions, timeline, any specific requirements..." required></textarea>
+          </div>
+
+          <!-- How did you hear -->
+          <div class="form-group">
+            <label for="source">How Did You Find Us?</label>
+            <select id="source" name="source" class="form-control">
+              <option value="" disabled selected>Select one...</option>
+              <option value="google">Google Search</option>
+              <option value="referral">Client Referral</option>
+              <option value="trade-show">Trade Show / Exhibition</option>
+              <option value="social">Social Media</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn" aria-label="Submit contact form">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message & Request Quote
+          </button>
+          <div class="form-footer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Your information is secure and never shared with third parties.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="section-sm map-section" aria-label="Location map">
+  <div class="container">
+    <div class="map-container">
+      <!-- Embedded Google Maps placeholder — replace src with actual embed URL -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7320388!2d-118.2436849!3d34.0522342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fef1de0573841!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sus!4v1234567890"
+        title="VortKart headquarters location map"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        aria-label="Map showing VortKart headquarters in Los Angeles, CA">
+      </iframe>
+      <div class="map-overlay-info">
+        <h4>VortKart® Headquarters</h4>
+        <p>123 Motorsport Drive<br>Karting District, Los Angeles<br>CA 90001, USA</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Maps">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          Open in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ QUICK -->
+<section class="section-sm" style="background:var(--dark-2);padding-top:80px;padding-bottom:80px;" aria-labelledby="contact-faq-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">Quick Answers</div>
+      <h2 id="contact-faq-heading">Before You <span class="highlight">Reach Out</span></h2>
+    </div>
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="faq-item fade-in">
+        <button class="faq-question" aria-expanded="false">
+          How fast will I receive a quote?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">For standard kart orders, we typically respond with a full quote within 24–48 hours. For track design or turnkey projects, we schedule a discovery call and provide a detailed proposal within 5–7 business days.</div></div>
+      </div>
+      <div class="faq-item fade-in delay-1">
+        <button class="faq-question" aria-expanded="false">
+          Do you ship internationally?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes — we ship to 60+ countries worldwide via sea or air freight. We handle all export documentation, packing lists, and can arrange DDP (Delivered Duty Paid) shipping to your facility for maximum convenience.</div></div>
+      </div>
+      <div class="faq-item fade-in delay-2">
+        <button class="faq-question" aria-expanded="false">
+          Can I visit your factory before ordering?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely — we welcome factory visits by appointment. Many of our clients visit before placing larger orders, and we're always happy to show you around our manufacturing facility, quality control processes, and kart test track. Contact us to schedule a visit.</div></div>
+      </div>
+      <div class="faq-item fade-in delay-3">
+        <button class="faq-question" aria-expanded="false">
+          Do you offer financing or payment terms?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">We offer flexible payment terms for qualified buyers, typically 30% deposit + 70% before shipment. For larger projects (50+ karts or full turnkey), we can discuss extended payment schedules. Contact us to discuss your requirements.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions. Factory direct. Globally trusted.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="listings.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Go Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+        <a href="contact.html">Parts & Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+1 (234) 567-890</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>sales@vortkart.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>123 Motorsport Drive,<br>Karting District, CA 90001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart® International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

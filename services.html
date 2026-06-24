@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VortKart® Services | Commercial Go Karts, Racing Chassis & Track Design</title>
+  <meta name="description" content="VortKart® offers commercial go kart manufacturing, racing kart chassis production, go kart track design and complete turnkey karting solutions for operators worldwide." />
+  <meta name="keywords" content="commercial go kart manufacturing, rental go kart supplier, go kart track design, turnkey karting solutions, racing kart chassis" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- SERVICES-SPECIFIC ---- */
+    .services-grid-section { background: var(--dark); }
+    .service-card {
+      background: var(--dark-3); border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.07); overflow: hidden;
+      transition: var(--transition);
+    }
+    .service-card:hover { border-color: rgba(230,57,0,0.35); transform: translateY(-6px); }
+    .service-card-img { aspect-ratio: 16/9; overflow: hidden; }
+    .service-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: transform 0.5s ease; }
+    .service-card:hover .service-card-img img { transform: scale(1.05); }
+    .service-card-body { padding: 36px; }
+    .service-card-icon {
+      width: 52px; height: 52px; background: rgba(230,57,0,0.1); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .service-card-icon svg { width: 26px; height: 26px; color: var(--primary); }
+    .service-card-body h3 { font-size: 26px; margin-bottom: 12px; }
+    .service-card-body p { font-size: 15px; margin-bottom: 24px; }
+    .service-features { list-style: none; margin: 0; }
+    .service-features li {
+      display: flex; gap: 10px; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px; color: var(--gray-4);
+    }
+    .service-features li:last-child { border-bottom: none; }
+    .service-features li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0;
+    }
+    .service-card-link {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--primary); transition: gap var(--transition);
+    }
+    .service-card-link:hover { gap: 12px; }
+    .service-card-link svg { width: 16px; height: 16px; }
+
+    /* Two-column featured service */
+    .service-featured {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: var(--radius-xl); overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--dark-3);
+      margin-bottom: 32px;
+      transition: var(--transition);
+    }
+    .service-featured:hover { border-color: rgba(230,57,0,0.35); }
+    .service-featured-img { overflow: hidden; }
+    .service-featured-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: transform 0.5s ease; }
+    .service-featured:hover .service-featured-img img { transform: scale(1.04); }
+    .service-featured-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+
+    /* Process */
+    .process-section { background: var(--dark-2); }
+
+    /* FAQ */
+    .faq-section { background: var(--dark); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .faq-left h2 { margin-bottom: 20px; }
+    .faq-left p { margin-bottom: 32px; }
+    .faq-right { }
+
+    /* Pricing teaser */
+    .pricing-section { background: var(--dark-2); }
+    .pricing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .pricing-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl); padding: 40px; text-align: center;
+      transition: var(--transition); position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--primary); background: var(--dark-4);
+    }
+    .pricing-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 16px; border-radius: 100px;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-tier {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 12px;
+    }
+    .pricing-card h3 { font-size: 28px; margin-bottom: 8px; }
+    .pricing-card .price {
+      font-family: var(--font-heading); font-size: 48px; font-weight: 800;
+      color: var(--white); line-height: 1; margin-bottom: 4px;
+    }
+    .pricing-card .price-note { font-size: 13px; color: var(--gray-3); margin-bottom: 24px; }
+    .pricing-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 24px 0; }
+    .pricing-features { text-align: left; }
+    .pricing-features li {
+      display: flex; gap: 10px; align-items: center;
+      padding: 8px 0; font-size: 14px; color: var(--gray-4);
+    }
+    .pricing-features li svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Services page hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1532581140115-3e355d1ed1de?w=1600&q=80')" role="img" aria-label="Fleet of commercial rental go karts"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Services</span>
+      </nav>
+      <div class="label">What We Offer</div>
+      <h1>Full-Spectrum<br><span class="highlight">Karting</span> Solutions</h1>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="section services-grid-section" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">Our Services</div>
+      <h2 id="services-heading">Everything You Need<br>to <span class="highlight">Launch & Operate</span></h2>
+      <p>From a single kart purchase to a complete attraction — we cover every aspect of your karting business needs.</p>
+    </div>
+
+    <!-- Featured: Commercial Karts -->
+    <div class="service-featured fade-in" id="commercial">
+      <div class="service-featured-img">
+        <img src="images/ev-pro-48/1.jpg" alt="Fleet of commercial go karts for rental operations at amusement park" loading="lazy" />
+      </div>
+      <div class="service-featured-body">
+        <div class="label">Most Popular</div>
+        <h3>Commercial <span class="highlight">Go Karts</span></h3>
+        <p style="margin: 16px 0 24px;">Purpose-built for high-throughput rental operations, our commercial go karts deliver unmatched durability, consistent performance, and minimal maintenance demands — protecting your bottom line race after race.</p>
+        <ul class="service-features">
+          <li>Electric EV-Pro® series — zero emissions, low noise, ideal for indoor/outdoor</li>
+          <li>Gas-powered DuraTrak® series — max power for outdoor tracks</li>
+          <li>Junior Kart series — purpose-designed for 5–12 year age groups</li>
+          <li>Custom fleet sizing from 5 to 100+ units</li>
+          <li>Fleet management & timing system integration</li>
+        </ul>
+        <a href="contact.html" class="service-card-link">
+          Request Fleet Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3 Cards -->
+    <div class="grid-3" style="margin-top:0;">
+      <div class="service-card fade-in delay-1" id="racing">
+        <div class="service-card-img">
+          <img src="images/proframe-r32/1.jpg" alt="Racing kart chassis ready for competition circuit use" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Racing Kart Chassis</h3>
+          <p>Competition-grade tubular steel chassis for club and professional racing. CNC-bent precision tubing, optimized geometry, and lightweight construction for maximum performance.</p>
+          <ul class="service-features">
+            <li>CIK/FIA homologated designs</li>
+            <li>32mm & 30mm tube options</li>
+            <li>Junior, Cadet, and Senior sizes</li>
+            <li>Custom OEM branding available</li>
+          </ul>
+          <a href="contact.html" class="service-card-link">
+            Get Chassis Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="service-card fade-in delay-2" id="track">
+        <div class="service-card-img">
+          <img src="images/proframe-r32/4.jpg" alt="Professional go kart track aerial view showing circuit layout" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Track Design</h3>
+          <p>Custom go kart track layout design for any space — indoor, outdoor, rooftop, or integrated in a larger attraction. We optimize every corner for flow, safety, and entertainment value.</p>
+          <ul class="service-features">
+            <li>3D CAD design and rendering</li>
+            <li>Feasibility study and site analysis</li>
+            <li>Safety barrier specification</li>
+            <li>Revenue optimization layout modeling</li>
+          </ul>
+          <a href="contact.html" class="service-card-link">
+            Request Track Design <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="service-card fade-in delay-3" id="turnkey">
+        <div class="service-card-img">
+          <img src="images/duratrak-270/8.jpg" alt="Complete turnkey karting attraction with spectator area and timing system" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          </div>
+          <h3>Turnkey Solutions</h3>
+          <p>The complete package: from site survey and track design to kart supply, timing system installation, staff training, and grand opening. One partner handles everything.</p>
+          <ul class="service-features">
+            <li>Single point of contact management</li>
+            <li>Barrier, signage & pit lane setup</li>
+            <li>Timing & fleet management systems</li>
+            <li>Staff training and operations manual</li>
+          </ul>
+          <a href="contact.html" class="service-card-link">
+            Get Turnkey Proposal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process-section" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">How It Works</div>
+      <h2 id="process-heading">From Enquiry to<br><span class="highlight">Opening Day</span></h2>
+      <p>Our proven 4-step process ensures every project is delivered on time, on spec, and ready to generate revenue.</p>
+    </div>
+    <div class="process-steps fade-in">
+      <div class="process-step">
+        <div class="step-num" aria-hidden="true">01</div>
+        <h4>Discovery Call</h4>
+        <p>Tell us your vision, site dimensions, budget, and timeline. We'll match you to the right solution within 48 hours.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num" aria-hidden="true">02</div>
+        <h4>Design & Proposal</h4>
+        <p>Our engineers produce a custom track layout, kart specification, and detailed project proposal with full cost breakdown.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num" aria-hidden="true">03</div>
+        <h4>Manufacturing & Shipping</h4>
+        <p>Your karts and equipment are manufactured to spec, QA-inspected, and shipped with all documentation for smooth customs clearance.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num" aria-hidden="true">04</div>
+        <h4>Installation & Launch</h4>
+        <p>Our installation team commissions the track, sets up all systems, trains your staff, and hands over a fully operational attraction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-left fade-in">
+        <div class="label">FAQs</div>
+        <h2 id="faq-heading">Common<br><span class="highlight">Questions</span></h2>
+        <p>Everything you need to know before starting your karting project. Can't find your answer? Contact us directly.</p>
+        <a href="contact.html" class="btn btn-primary" style="margin-top:8px;">Ask a Question</a>
+      </div>
+      <div class="faq-right fade-in delay-2" role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            What is the minimum order quantity for commercial go karts?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Our standard minimum order is 5 units for commercial rental karts. However, we also supply single units for fleet replenishment orders to existing clients. Larger fleet orders (20+ units) qualify for volume pricing and priority production slots.</div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            How long does manufacturing and delivery take?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Standard production lead time is 4–8 weeks depending on order size and current production schedule. We ship worldwide via sea freight (3–6 weeks transit) or air freight (5–10 days) depending on your urgency and budget. Rush production slots are sometimes available — ask us.</div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Do you offer electric and gas-powered kart options?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. Our EV-Pro® electric series is ideal for indoor venues, resorts, and operators who prioritize low noise and zero emissions. Our DuraTrak® gas-powered series offers maximum power output for outdoor and high-performance tracks. Both series are available in adult and junior configurations.</div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Can you design a track for an irregular or indoor space?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. We specialize in constrained and irregular spaces — warehouse conversions, rooftop tracks, basement-level indoor circuits, and curved outdoor footprints. Our designers work with your architectural drawings and produce layouts that maximize circuit length and entertainment value within your space.</div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            What warranty and after-sales support do you provide?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">All VortKart® commercial karts carry a 12-month structural warranty on chassis and a 6-month warranty on drivetrain components. We stock spare parts for every kart model we've ever manufactured and can ship globally within 48 hours. Our technical support team is available 24/7 via phone, email, and video call.</div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Do you work with distributors and resellers?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. We actively partner with distributors in territories where we don't have direct representation. Our distributor program offers preferential pricing, co-branded marketing materials, technical training, and dedicated account management. Contact us to enquire about territory availability in your region.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TEASER -->
+<section class="section pricing-section" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-header center fade-in">
+      <div class="label">Investment Tiers</div>
+      <h2 id="pricing-heading">Find the Right<br><span class="highlight">Starting Point</span></h2>
+      <p>Whether you're a new operator or expanding an existing attraction, we have a solution scaled to your ambition.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-card fade-in delay-1">
+        <div class="pricing-tier">Starter</div>
+        <h3>Fleet Package</h3>
+        <div class="price">5–10</div>
+        <div class="price-note">Karts — Custom pricing by spec</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features" aria-label="Starter package features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>5–10 commercial karts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Standard livery</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>12-month warranty</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Operator manual</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:28px;">Get Quote</a>
+      </div>
+      <div class="pricing-card featured fade-in delay-2">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Growth</div>
+        <h3>Track + Fleet</h3>
+        <div class="price">20+</div>
+        <div class="price-note">Karts + Track Design bundle</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features" aria-label="Growth package features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>20+ commercial karts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Custom track design included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Timing system integration</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Staff training program</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Priority technical support</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:28px;">Get Quote</a>
+      </div>
+      <div class="pricing-card fade-in delay-3">
+        <div class="pricing-tier">Enterprise</div>
+        <h3>Turnkey Attraction</h3>
+        <div class="price">50+</div>
+        <div class="price-note">Karts — Complete build-out</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features" aria-label="Enterprise package features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>50+ kart fleet</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Full track construction oversight</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Branded livery & signage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Dedicated project manager</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Grand opening support</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:28px;">Get Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="services-cta-heading">
+  <div class="container">
+    <div class="fade-in">
+      <div class="label" style="justify-content:center;">Start Today</div>
+      <h2 id="services-cta-heading">Ready to Discuss<br><span class="highlight">Your Project?</span></h2>
+      <p>Our team responds to every enquiry within 24 hours with a tailored recommendation.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn btn-primary btn-lg">Request a Quote</a>
+        <a href="listings.html" class="btn btn-outline btn-lg">View Our Work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions. Factory direct. Globally trusted.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="listings.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Go Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+        <a href="contact.html">Parts & Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 010 2.94 2 2 0 012 .76h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+1 (234) 567-890</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>sales@vortkart.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>123 Motorsport Drive,<br>Karting District, CA 90001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart® International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

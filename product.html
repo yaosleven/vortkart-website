@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VortKart® | Product Specification Sheet</title>
+  <meta name="description" content="Detailed technical specifications, features, and performance data for VortKart® commercial go kart products." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================
+       PRODUCT DETAIL PAGE
+       ======================== */
+    .product-detail-hero {
+      position: relative; min-height: 520px;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+      background: var(--dark-2);
+    }
+    .product-detail-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: opacity 0.5s ease;
+    }
+    .product-detail-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.4) 100%);
+    }
+    .product-detail-hero .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      position: relative; z-index: 2;
+    }
+
+    .pd-breadcrumb { font-size: 12px; color: var(--gray-3); margin-bottom: 16px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .pd-breadcrumb a { color: var(--gray-3); transition: color var(--transition); }
+    .pd-breadcrumb a:hover { color: var(--primary); }
+    .pd-badge {
+      display: inline-block; background: var(--primary); color: var(--white);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .pd-title {
+      font-family: var(--font-heading); font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800; line-height: 1.05; margin-bottom: 16px;
+      text-transform: uppercase; letter-spacing: -0.02em;
+    }
+    .pd-subtitle {
+      font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 32px;
+    }
+    .pd-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Hero image area */
+    .pd-hero-img-wrap {
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+    .pd-hero-img-wrap img { width: 100%; height: auto; display: block; aspect-ratio: 4/3; object-fit: cover; }
+
+    /* Spec sheet sections */
+    .pd-section { padding: 80px 0; }
+    .pd-section:nth-child(even) { background: var(--dark-2); }
+    .pd-spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .pd-spec-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: var(--transition);
+    }
+    .pd-spec-card:hover { border-color: rgba(230,57,0,0.25); transform: translateY(-3px); }
+    .pd-spec-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray-3);
+      margin-bottom: 8px;
+    }
+    .pd-spec-value {
+      font-family: var(--font-heading); font-size: 26px; font-weight: 800;
+      color: var(--white); line-height: 1.15;
+    }
+    .pd-spec-value span { color: var(--primary); }
+    .pd-spec-unit {
+      font-size: 13px; color: var(--gray-3); margin-left: 4px;
+      font-weight: 400; font-family: 'Inter', sans-serif;
+    }
+
+    /* Features */
+    .pd-feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+    }
+    .pd-feature-item {
+      display: flex; gap: 18px; align-items: flex-start; padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .pd-feature-icon {
+      width: 44px; height: 44px; min-width: 44px;
+      background: rgba(230,57,0,0.1); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pd-feature-icon svg { width: 22px; height: 22px; color: var(--primary); }
+    .pd-feature-text h4 { font-size: 17px; margin-bottom: 4px; }
+    .pd-feature-text p { font-size: 14px; color: var(--gray-3); line-height: 1.6; margin: 0; }
+
+    /* Full specs table */
+    .pd-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.06); }
+    .pd-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .pd-table th {
+      text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray-3);
+      padding: 16px 24px; background: var(--dark-4); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pd-table td {
+      padding: 14px 24px; font-size: 15px; color: var(--gray-4);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .pd-table tr:last-child td { border-bottom: none; }
+    .pd-table tr:hover td { background: rgba(230,57,0,0.04); }
+    .pd-table td:first-child { font-weight: 600; color: var(--white); width: 35%; }
+    .pd-table td:last-child { font-weight: 500; color: var(--gray-4); }
+
+    /* Gallery strip */
+    .pd-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .pd-gallery img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: var(--radius-md); cursor: pointer;
+      transition: var(--transition);
+    }
+    .pd-gallery img:hover { transform: scale(1.03); }
+
+    /* CTA bar */
+    .pd-cta-bar {
+      background: linear-gradient(135deg, var(--dark-3), var(--dark));
+      border-top: 3px solid var(--primary);
+      padding: 48px 0;
+      text-align: center;
+    }
+    .pd-cta-bar h3 { font-size: 28px; margin-bottom: 12px; }
+    .pd-cta-bar p { color: var(--gray-3); max-width: 520px; margin: 0 auto 28px; }
+    .pd-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Related products */
+    .pd-related-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .pd-related-card:hover { border-color: rgba(230,57,0,0.25); transform: translateY(-4px); }
+    .pd-related-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; flex-shrink: 0; }
+    .pd-related-body { padding: 16px 16px 14px; display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+    .pd-related-body h4 { font-size: 15.5px; margin-bottom: 6px; line-height: 1.3; white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+    .pd-related-body p { font-size: 13px; color: var(--gray-3); margin-bottom: 14px; }
+
+    /* Responsive handled in global styles.css */
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+        <div class="nav-logo-icon">VK</div>
+        <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="listings.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="tel:+1234567890" class="nav-phone" aria-label="Call us">+1 (234) 567-890</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="listings.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+</div>
+
+<!-- PRODUCT HERO -->
+<section class="product-detail-hero" id="heroSection" aria-label="Product hero section">
+  <div class="product-detail-bg" id="pdBg"></div>
+  <div class="product-detail-overlay"></div>
+  <div class="container" id="pdHeroContent">
+    <!-- Filled by JS -->
+  </div>
+</section>
+
+<!-- KEY SPECS OVERVIEW -->
+<section class="pd-section" id="keySpecsSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label" id="pdSecLabel">Key Specifications</div>
+      <h2>Performance at<br>a Glance</h2>
+    </div>
+    <div class="pd-spec-grid fade-in delay-1" id="pdKeySpecs"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="pd-section" id="featuresSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Product Highlights</div>
+      <h2>Why Choose the<br><span class="highlight" id="featTitle">EV-Pro 48?</span></h2>
+    </div>
+    <div class="pd-feature-grid fade-in delay-1" id="pdFeatures"></div>
+  </div>
+</section>
+
+<!-- FULL SPEC TABLE -->
+<section class="pd-section" id="tableSection">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Technical Data</div>
+      <h2>Complete Specification Sheet</h2>
+    </div>
+    <div class="fade-in delay-1">
+      <div class="pd-table-wrap">
+        <table class="pd-table" id="pdSpecTable">
+          <!-- Filled by JS -->
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<section class="pd-section" style="background:var(--dark);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">Gallery</div>
+      <h2>In Action</h2>
+    </div>
+    <div class="pd-gallery fade-in delay-1" id="pdGallery"></div>
+  </div>
+</section>
+
+<!-- CTA BAR -->
+<div class="pd-cta-bar">
+  <div class="container fade-in">
+    <h3 id="ctaBarTitle">Ready to Order EV-Pro 48?</h3>
+    <p>Request a custom quotation or download the full technical datasheet for your engineering team.</p>
+    <div class="pd-cta-buttons">
+      <a href="contact.html" class="btn btn-primary btn-lg" id="ctaQuoteBtn">Request Quote</a>
+      <a href="#" class="btn btn-outline btn-lg" id="ctaDownloadBtn" onclick="window.print();return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="width:18px;height:18px;vertical-align:-3px;margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Print / Save PDF
+      </a>
+      <a href="listings.html" class="btn btn-ghost btn-lg" id="ctaBackBtn">&larr; All Products</a>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<section class="pd-section" style="padding-bottom:120px;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="label">You Might Also Like</div>
+      <h2>Related Products</h2>
+    </div>
+    <div class="grid-3 fade-in delay-1" id="pdRelated"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="VortKart Home">
+          <div class="nav-logo-icon">VK</div>
+          <div class="nav-logo-text">Vort<span>Kart</span><sup style="font-size:10px;vertical-align:super;">®</sup></div>
+        </a>
+        <p>The world's leading manufacturer of commercial go karts and provider of complete karting attraction solutions.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <a href="product.html?id=ev-pro-48">EV-Pro 48</a>
+        <a href="product.html?id=duratrak-270">DuraTrak 270</a>
+        <a href="product.html?id=juniorsprint-ev">JuniorSprint EV</a>
+        <a href="product.html?id=proframe-r32">ProFrame R32</a>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html#commercial">Commercial Karts</a>
+        <a href="services.html#racing">Racing Chassis</a>
+        <a href="services.html#track">Track Design</a>
+        <a href="services.html#turnkey">Turnkey Solutions</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <p>+1 (234) 567-890</p>
+        <p>info@vortkart.com</p>
+        <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);">Mon–Fri: 9:00 – 18:00 EST</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VortKart&reg; International. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.51" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// ============================
+// PRODUCT DATA
+// ============================
+const PRODUCTS = {
+
+  "ev-pro-48": {
+    name: "EV-Pro&reg; 48",
+    badge: "Bestseller",
+    badgeColor: "#E63900",
+    subtitle: "Our flagship electric rental kart &mdash; zero-emission, low-noise, high-durability. Built for indoor and outdoor venues demanding premium guest experience.",
+    image: "images/ev-pro-48/1.jpg",
+    category: "Electric Commercial Kart",
+    keySpecs: [
+      { label: "Motor Type", value: "3<span>kW</span>", unit: "Brushless DC Electric" },
+      { label: "Top Speed", value: "50", unit: "km/h (adjustable)" },
+      { label: "Charge Time", value: "45", unit: "minutes (fast charge)" },
+      { label: "Runtime", value: "2&ndash;3", unit: "hours continuous" },
+      { label: "Battery", value: "48V", unit: "LiFePO4 60Ah" },
+      { label: "Max Driver Weight", value: "130", unit: "kg" },
+    ],
+    features: [
+      { icon: "bolt", title: "Zero Emissions", desc: "Fully electric drivetrain produces zero exhaust emissions &mdash; ideal for indoor venues and environmentally-conscious operations." },
+      { icon: "volume-x", title: "Whisper Quiet", desc: "Near-silent operation below 55 dB(A). No noise complaints from neighbors even in residential areas." },
+      { icon: "shield-check", title: "Heavy-Duty Frame", desc: "Welded tubular steel frame rated for 500+ kg dynamic loads. Powder-coated for corrosion resistance in all climates." },
+      { icon: "zap", title: "Regenerative Braking", desc: "Recovers up to 15% of energy during braking, extending runtime and reducing brake pad wear by 60%." },
+      { icon: "settings", title: "Remote Management", desc: "Integrated telemetry supports remote speed limiting, fleet monitoring, usage analytics, and OTA firmware updates." },
+      { icon: "clock", title: "Quick Battery Swap", desc: "Hot-swappable battery design allows sub-60 second changeover between rental sessions with no tools required." },
+    ],
+    tableRows: [
+      ["Model Name", "EV-Pro&reg; 48"],
+      ["Category", "Electric Rental Go Kart"],
+      ["Powertrain", "3kW BLDC Rear Axle Motor"],
+      ["Battery System", "48V LiFePO4 60Ah (2.88 kWh)"],
+      ["Charger", "On-board 1.5 kW + External 3 kW Fast Charge Option"],
+      ["Charge Time (Full)", "45 min (fast) / 90 min (standard)"],
+      ["Top Speed (Max)", "50 km/h (electronically limited, adjustable)"],
+      ["Acceleration (0-50)", "~8 seconds"],
+      ["Continuous Runtime", "2&ndash;3 hours (mixed driving)"],
+      ["Frame Material", "Welded DOM Steel Tubing, Powder-Coated"],
+      ["Overall Dimensions", "2100 &times; 1380 &times; 720 mm (L&times;W&times;H)"],
+      ["Wheelbase", "1150 mm"],
+      ["Ground Clearance", "85 mm"],
+      ["Seat Adjustment Range", "320&ndash;420 mm (fore/aft slide)"],
+      ["Driver Height Range", "145&ndash;200 cm"],
+      ["Max Driver Weight", "130 kg"],
+      ["Dry Weight (with battery)", "185 kg"],
+      ["Tires (Front/Rear)", "11&times;7.1&minus;5 / 11&times;7.1&minus;5 Slick"],
+      ["Braking System", "Rear Hydraulic Disc + Regenerative Electronic Brake"],
+      ["Steering", "Rack-and-Pinion, 2.2 turns lock-to-lock"],
+      ["Safety Belt", "4-Point Racing Harness (FIA homologated)"],
+      ["Bumpers", "Front & Rear HDPE Impact Absorbers"],
+      ["Operating Temperature", "&minus;10&deg;C to +50&deg;C"],
+      ["IP Rating", "IP54 (dust/splash resistant)"],
+      ["Warranty", "2 years powertrain / 1 year battery"],
+    ],
+    gallery: [
+      "images/ev-pro-48/2.jpg",
+      "images/ev-pro-48/3.jpg",
+      "images/ev-pro-48/4.jpg",
+      "images/ev-pro-48/5.jpg",
+    ],
+    related: ["duratrak-270", "ev-max-72", "juniorsprint-ev"]
+  },
+
+  "duratrak-270": {
+    name: "DuraTrak&reg; 270",
+    badge: "",
+    badgeColor: "#E63900",
+    subtitle: "Powered by a 270cc engine, the DuraTrak&reg; delivers maximum thrills for outdoor attractions and high-throughput rental operations demanding raw performance.",
+    image: "images/duratrak-270/1.jpg",
+    category: "Gas-Powered Commercial Kart",
+    keySpecs: [
+      { label: "Engine", value: "270cc", unit: "4-Stroke Single Cylinder" },
+      { label: "Top Speed", value: "75", unit: "km/h (governed)" },
+      { label: "Fuel Tank", value: "3.5", unit: "litres capacity" },
+      { label: "Weight", value: "135", unit: "kg (dry)" },
+      { label: "Transmission", value: "CVT", unit: "Automatic Centrifugal" },
+      { label: "Range per Tank", value: "120+", unit: "km mixed" },
+    ],
+    features: [
+      { icon: "flame", title: "Proven Powerplant", desc: "Reliable Loncin-based 270cc 4-stroke engine with centrifugal clutch. Low maintenance, high torque output across the entire RPM band." },
+      { icon: "gauge", title: "Governed Speed Control", desc: "Operator-adjustable speed governor from 30&ndash;75 km/h. Ideal for progressive skill-building programs and safety compliance." },
+      { icon: "droplet", title: "Fuel Efficiency", desc: "Industry-leading fuel economy of over 120 km per tankful reduces operational costs and refueling downtime significantly." },
+      { icon: "wrench", title: "Tool-Free Service", desc: "All routine maintenance points (oil check, air filter, spark plug) are accessible without tools. Average service time under 15 minutes." },
+      { icon: "thermometer", title: "Thermal Protection", desc: "Built-in low-oil pressure sensor and over-temp shutdown prevent engine damage from abuse or neglect." },
+      { icon: "wind", title: "Outdoor Optimized", desc: "All-weather sealed ignition system, water-resistant air intake snorkel, and marine-grade exhaust for reliable operation in rain or dust." },
+    ],
+    tableRows: [
+      ["Model Name", "DuraTrak&reg; 270"],
+      ["Category", "Gas-Powered Rental Go Kart"],
+      ["Engine", "270cc Air-Cooled 4-Stroke, OHV, Single Cylinder"],
+      ["Max Power", "7.5 kW @ 7,500 rpm"],
+      ["Max Torque", "10.5 Nm @ 5,500 rpm"],
+      ["Transmission", "CVT Automatic (Centrifugal Clutch)"],
+      ["Final Drive", "Chain #41, 13:54 Ratio"],
+      ["Fuel Tank Capacity", "3.5 litres (unleaded 91 RON+)"],
+      ["Fuel Consumption", "~2.8 L/100 km (mixed)"],
+      ["Range per Tank", "120+ km"],
+      ["Top Speed (Governed)", "30&ndash;75 km/h (operator adjustable)"],
+      ["Frame Material", "DOM Steel Tubing, E-Coat + Powder Coat"],
+      ["Dimensions (L&times;W&times;H)", "2150 &times; 1420 &times; 750 mm"],
+      ["Wheelbase", "1180 mm"],
+      ["Dry Weight", "135 kg"],
+      ["Driver Height Range", "150&ndash;200 cm"],
+      ["Brakes", "Hydraulic Rear Disc (200mm) + Mechanical Front Drum"],
+      ["Tires", "11&times;7.1&minus;5 Front &amp; Rear Slick"],
+      ["Steering", "Rack-and-Pinion, Adjustable Column"],
+      ["Safety", "4-Point Harness, Bumpers, Kill Switch"],
+      ["Warranty", "2 years engine / 1 year frame"],
+    ],
+    gallery: [
+      "images/duratrak-270/2.jpg",
+      "images/ev-pro-48/4.jpg",
+      "images/duratrak-270/4.jpg",
+      "images/ev-pro-48/3.jpg",
+    ],
+    related: ["ev-pro-48", "duratrak-160", "proframe-r32"]
+  },
+
+  "juniorsprint-ev": {
+    name: "JuniorSprint&reg; EV",
+    badge: "",
+    badgeColor: "#E63900",
+    subtitle: "Specifically engineered for young drivers aged 5&ndash;12. Speed-limited, impact-resistant bodywork, and intuitive throttle response make it the safest junior kart on the market.",
+    image: "images/juniorsprint-ev/1.jpg",
+    category: "Junior Electric Kart",
+    keySpecs: [
+      { label: "Motor", value: "1.2<span>kW</span>", unit: "Brushless DC" },
+      { label: "Max Speed", value: "25", unit: "km/h (limited)" },
+      { label: "Age Range", value: "5&ndash;12", unit: "years" },
+      { label: "Height Range", value: "110&ndash;150", unit: "cm" },
+      { label: "Battery", value: "24V", unit: "LiFePO4 30Ah" },
+      { label: "Runtime", value: "2.5+", unit: "hours" },
+    ],
+    features: [
+      { icon: "heart", title: "Child-Safe Design", desc: "Speed electronically capped at 25 km/h. Dual redundant braking system ensures safe stops every time, even under panic conditions." },
+      { icon: "ruler", title: "Adjustable Pedals", desc: "3-position pedal adjustment accommodates growing children from age 5 through 12 without needing multiple chassis sizes." },
+      { icon: "hard-hat", title: "Impact Protection", desc: "HDPE body panels with energy-absorbing foam core. Rounded edges and enclosed rear axle eliminate pinch and crush hazards." },
+      { icon: "smile", title: "Intuitive Controls", desc: "Single pedal accelerator with automatic creep-stop. Steering ratio tuned for small hands. Dashboard shows simple speed/gear indicators only." },
+      { icon: "lock", title: "Remote Emergency Stop", desc: "Staff can trigger an instant full stop via RF remote within 100m range. Auto-resets after 5-second safety pause." },
+      { icon: "leaf", title: "Eco-Friendly", desc: "Zero fumes means safe for fully-enclosed indoor play areas where gas karts would be prohibited." },
+    ],
+    tableRows: [
+      ["Model Name", "JuniorSprint&reg; EV"],
+      ["Category", "Junior Electric Rental Go Kart"],
+      ["Target Age", "5&ndash;12 years"],
+      ["Motor", "1.2kW Brushless DC, Rear Axle"],
+      ["Battery", "24V LiFePO4 30Ah (0.72 kWh)"],
+      ["Charge Time", "60 minutes (standard charger)"],
+      ["Top Speed", "25 km/h (fixed limit)"],
+      ["Acceleration", "Gentle ramp-up (child-friendly)"],
+      ["Runtime", "2.5&ndash;3 hours continuous"],
+      ["Frame", "Scaled steel tube, powder-coated"],
+      ["Dimensions (L&times;W&times;H)", "1650 &times; 980 &times; 520 mm"],
+      ["Wheelbase", "900 mm"],
+      ["Ground Clearance", "60 mm"],
+      ["Dry Weight", "82 kg"],
+      ["Driver Height", "110&ndash;150 cm"],
+      ["Seat Adjustment", "3 positions (80mm travel)"],
+      ["Pedal Adjustment", "3 positions (60mm travel)"],
+      ["Braking", "Rear Hydraulic Disc + Electronic Regenerative"],
+      ["Belt System", "3-Point Automotive Style (adjustable)"],
+      ["Body Panels", "HDPE with foam impact layer"],
+      ["Remote Stop", "RF 433 MHz, 100m range"],
+      ["Warranty", "2 years / 500 cycles battery"],
+    ],
+    gallery: [
+      "images/ev-pro-48/5.jpg",
+      "images/ev-pro-48/2.jpg",
+      "images/juniorsprint-ev/4.jpg",
+      "images/juniorsprint-ev/5.jpg",
+    ],
+    related: ["ev-pro-48", "duratrak-160", "ev-max-72"]
+  },
+
+  "proframe-r32": {
+    name: "ProFrame&reg; R32",
+    badge: "Racing",
+    badgeColor: "#FFB800",
+    subtitle: "CIK/FIA-spec racing chassis for club and national competition. Precision CNC-bent 32mm chrome-moly tubing with competition-optimized geometry.",
+    image: "images/proframe-r32/1.jpg",
+    category: "Competition Racing Chassis",
+    keySpecs: [
+      { label: "Tube Size", value: "32<span>mm</span>", unit: "Chrome-Moly 4130" },
+      { label: "Weight (Bare)", value: "56", unit: "kg chassis only" },
+      { label: "Homologation", value: "CIK/FIA", unit: "Certified" },
+      { label: "Wheelbase Range", value: "1010&ndash;1060", unit: "mm adjustable" },
+      { label: "Classes", value: "OK / KZ", unit: "X30 Compatible" },
+      { label: "Caster/Camber", value: "Full Adj.", unit: "Pillows included" },
+    ],
+    features: [
+      { icon: "award", title: "Competition Homologated", desc: "Full CIK/FIA homologation for OK, KZ, and X30 classes. Race-legal at any national-level event worldwide." },
+      { icon: "target", title: "Precision Geometry", desc: "CNC-formed 32mm CrMo tubing with tolerance-controlled welding. Consistent handling from chassis to chassis, batch after batch." },
+      { icon: "sliders", title: "Fully Adjustable", desc: "Wheelbase, caster, camber, toe, track width, seat position, pedal box &mdash; everything adjustable without fabrication tools." },
+      { icon: "box-select", title: "Stiffness Tunable", desc: "Removable front torsion bars and adjustable rear stiffness struts let you dial grip levels track-by-track, session-by-session." },
+      { icon: "activity", title: "Lightweight Construction", desc: "56 kg bare chassis weight. Every gram saved on the frame translates directly into faster lap times." },
+      { icon: "package", title: "Complete Kit Available", desc: "Order as rolling chassis or complete race-ready package including wheels, tires, hubs, steering column, and floor pan." },
+    ],
+    tableRows: [
+      ["Model Name", "ProFrame&reg; R32"],
+      ["Category", "Racing Chassis (Competition)"],
+      ["Homologation", "CIK/FIA Level 2"],
+      ["Material", "32mm 4130 Chrome-Moly Seamless Tubing"],
+      ["Construction", "TIG-Welded, Heat Stress Relieved"],
+      ["Chassis Weight (Bare)", "56 kg"],
+      ["Wheelbase (Adjustable)", "1010&ndash;1060 mm (3-step)"],
+      ["Rear Track Width", "1050&ndash;1190 mm (adjustable)"],
+      ["Front Track Width", "670&ndash;740 mm (adjustable)"],
+      ["Caster Angle", "10&deg;&ndash;18&deg; (continuous)"],
+      ["Camber", "&plusmn;4&deg; (pillow ball)"],
+      ["Rear Width", "50/51 mm (axle options)"],
+      ["Compatible Classes", "OK, OK-Junior, KZ2, X30, Rotax DD2"],
+      ["Steering Column", "30mm Tapered Rack, Adjustable Height"],
+      ["Floor Pan", "Pre-drilled 4130 Aluminum, Adjustable Position"],
+      ["Pedal Box", "Floating design, fore/aft &amp; angle adjustable"],
+      ["Included Hardware", "Hubs, Wheel Spacers, Steering Shaft, Floor Pan, Body Mount Kit"],
+      ["Optional Extras", "Data logger mount, radiator kit, rain setup kit, carbon fiber nosecone"],
+      ["Warranty", "1 year manufacturing defect"],
+    ],
+    gallery: [
+      "images/duratrak-270/4.jpg",
+      "images/duratrak-270/2.jpg",
+      "images/proframe-r32/4.jpg",
+      "images/proframe-r32/5.jpg",
+    ],
+    related: ["ev-pro-48", "duratrak-270", "ev-max-72"]
+  },
+
+  "ev-max-72": {
+    name: "EV-Max&reg; 72",
+    badge: "New 2026",
+    badgeColor: "#7c3aed",
+    subtitle: "Our newest flagship &mdash; 72V high-performance electric kart delivering visceral acceleration of a gas kart with zero emissions. Designed for premium indoor entertainment centers.",
+    image: "images/ev-max-72/1.jpg",
+    category: "High-Performance Electric Kart",
+    keySpecs: [
+      { label: "Motor", value: "5<span>kW</span>", unit: "BLDC Peak Power" },
+      { label: "Top Speed", value: "65", unit: "km/h" },
+      { label: "0-50 km/h", value: "3.8", unit: "seconds" },
+      { label: "Battery", value: "72V", unit: "LiFePO4 84Ah (6 kWh)" },
+      { label: "Charge Time", value: "30", unit: "minutes (DC fast)" },
+      { label: "Runtime", value: "3+", unit: "hours aggressive" },
+    ],
+    features: [
+      { icon: "rocket", title: "Blazing Acceleration", desc: "0&ndash;50 km/h in just 3.8 seconds &mdash; matches the thrill of a 270cc gas kart but with instant torque delivery unique to electric." },
+      { icon: "battery-charging", title: "DC Fast Charge Ready", desc: "Supports CCS Type-2 DC fast charging at up to 7 kW. Recharge from 20% to 80% in just 22 minutes between peak sessions." },
+      { icon: "cpu", title: "Smart Traction Control", desc: "Onboard IMU and wheel-speed sensors enable real-time traction control that modulates power delivery corner by corner for optimal grip." },
+      { icon: "bar-chart-2", title: "Live Telemetry Display", desc: "Driver-facing LCD shows real-time speed, lap times, G-force, and remaining range. Optional cloud sync for post-session analysis." },
+      { icon: "volume-2", title: "Active Sound Synthesis", desc: "Programmable sound system can simulate engine notes for immersive racing feel, or run silent for pure EV experience." },
+      { icon: "layers", title: "Modular Architecture", desc: "Battery modules are field-swappable. Upgrade from 72V to future higher-voltage systems without replacing the entire vehicle platform." },
+    ],
+    tableRows: [
+      ["Model Name", "EV-Max&reg; 72"],
+      ["Category", "High-Performance Electric Racing/Rental Kart"],
+      ["Motor", "5kW BLDC (8kW peak) Mid-Ship Mount"],
+      ["Battery", "72V LiFePO4 84Ah (6.05 kWh)"],
+      ["Standard Charger", "3.3 kW On-board AC"],
+      ["Fast Charge Option", "7 kW DC (CCS Type-2)"],
+      ["Charge Time (Fast)", "22 min (20%&rarr;80%)"],
+      ["Top Speed", "65 km/h (adjustable)"],
+      ["0&ndash;50 km/h", "3.8 seconds"],
+      ["Peak Torque", "42 Nm at motor shaft"],
+      ["Continuous Runtime", "3+ hours (aggressive driving)"],
+      ["Frame", "Space-frame 4130 CrMo, TIG welded"],
+      ["Dimensions (L&times;W&times;H)", "2200 &times; 1440 &times; 720 mm"],
+      ["Dry Weight", "205 kg (with battery)"],
+      ["Driver Weight Limit", "140 kg"],
+      ["Brakes", "Dual Hydraulic Disc (Front & Rear) + Regen"],
+      ["Tires", "11&times;7.1&minus;5 Slick (Rain option available)"],
+      ["Display", "5\" TFT Color LCD with telemetry"],
+      ["Sound System", "Programmable Active Audio Synthesis"],
+      ["Connectivity", "WiFi + 4G + Bluetooth (telemetry)"],
+      ["IP Rating", "IP54"],
+      ["Warranty", "3 years powertrain / 2 years battery"],
+    ],
+    gallery: [
+      "images/ev-pro-48/3.jpg",
+      "images/ev-pro-48/2.jpg",
+      "images/duratrak-270/2.jpg",
+      "images/ev-pro-48/5.jpg",
+    ],
+    related: ["ev-pro-48", "proframe-r32", "duratrak-270"]
+  },
+
+  "duratrak-160": {
+    name: "DuraTrak&reg; 160",
+    badge: "",
+    badgeColor: "#E63900",
+    subtitle: "Compact gas rental kart with 160cc engine &mdash; perfect for family entertainment centers that want the authentic gas kart experience in a more manageable package.",
+    image: "images/duratrak-160/1.jpg",
+    category: "Compact Gas Kart",
+    keySpecs: [
+      { label: "Engine", value: "160cc", unit: "4-Stroke Single Cylinder" },
+      { label: "Top Speed", value: "55", unit: "km/h (governed)" },
+      { label: "Fuel Tank", value: "2.5", unit: "litres capacity" },
+      { label: "Weight", value: "118", unit: "kg (dry)" },
+      { label: "Transmission", value: "CVT", unit: "Automatic" },
+      { label: "Footprint", value: "Compact", unit: "ideal for FEC spaces" },
+    ],
+    features: [
+      { icon: "move", title: "Compact Footprint", desc: "15% smaller than standard rental karts. Fits tighter tracks and maximizes lane count in constrained venue layouts." },
+      { icon: "dollar-sign", title: "Entry-Level Price Point", desc: "Most affordable way to offer authentic gas-kart thrills. Lower acquisition cost means faster ROI for new operators." },
+      { icon: "refresh-cw", title: "Shared Parts Platform", desc: "Uses 70% common parts with DuraTrak 270. One parts inventory serves both models, simplifying your maintenance logistics." },
+      { icon: "check-circle", title: "Turn-Key Delivery", desc: "Arrives pre-assembled, pre-tested, and fueled. Unpack, do a quick safety check, and put it on the track same day." },
+      { icon: "users", title: "Beginner Friendly", desc: "Smooth CVT engagement and gentle throttle response make this the perfect first-time driver experience for family audiences." },
+      { icon: "shield", title: "Built Tough", desc: "Same heavy-duty steel frame construction as our larger karts. Just scaled down, not dumbed down." },
+    ],
+    tableRows: [
+      ["Model Name", "DuraTrak&reg; 160"],
+      ["Category", "Compact Gas-Powered Rental Kart"],
+      ["Engine", "160cc Air-Cooled 4-Stroke, OHV"],
+      ["Max Power", "4.5 kW @ 7,000 rpm"],
+      ["Transmission", "CVT Automatic (Centrifugal)"],
+      ["Final Drive", "Chain #35, 12:48 Ratio"],
+      ["Fuel Tank", "2.5 litres (unleaded 91 RON+)"],
+      ["Fuel Consumption", "~2.2 L/100 km"],
+      ["Range per Tank", "110+ km"],
+      ["Top Speed (Governed)", "30&ndash;55 km/h"],
+      ["Frame Material", "DOM Steel Tubing, Powder-Coated"],
+      ["Dimensions (L&times;W&times;H)", "1900 &times; 1280 &times; 700 mm"],
+      ["Wheelbase", "1020 mm"],
+      ["Dry Weight", "118 kg"],
+      ["Driver Height Range", "145&ndash;190 cm"],
+      ["Brakes", "Hydraulic Rear Disc + Mechanical Front"],
+      ["Tires", "10&times;4.50&minus;5 Front &amp; Rear"],
+      ["Safety", "4-Point Harness, Bumpers, Kill Switch"],
+      ["Parts Compatibility", "70% shared with DuraTrak 270"],
+      ["Warranty", "2 years engine / 1 year frame"],
+    ],
+    gallery: [
+      "images/ev-pro-48/4.jpg",
+      "images/duratrak-270/2.jpg",
+      "images/ev-pro-48/5.jpg",
+      "images/ev-pro-48/2.jpg",
+    ],
+    related: ["ev-pro-48", "duratrak-270", "juniorsprint-ev"]
+  }
+
+};
+
+// Icon SVG paths map
+const ICONS = {
+  bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  'volume-x': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>',
+  'shield-check': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>',
+  gauge: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a10 10 0 100-20 10 10 0 000 20z"/><path d="M12 18a6 6 0 100-12 6 6 0 000 12z"/><path d="M12 8v4l2 2"/></svg>',
+  droplet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z"/></svg>',
+  wrench: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>',
+  thermometer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>',
+  wind: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+  ruler: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.3 8.7l-8.6-8.6a1 1 0 00-1.4 0l-11 11a1 1 0 000 1.4l8.6 8.6a1 1 0 001.4 0l11-11a1 1 0 000-1.4zM14.5 12l-3-3"/></svg>',
+  'hard-hat': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18a10 10 0 0020 0"/><path d="M12 2v4"/><path d="M12 6a10 10 0 0110 10H2A10 10 0 0112 6z"/></svg>',
+  smile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',
+  leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 019.8 6.2C15.5 5 17 4.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>',
+  award: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  sliders: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>',
+  'box-select': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="3" height="3"/><rect x="14" y="7" width="3" height="3"/><rect x="7" y="14" width="3" height="3"/><rect x="14" y="14" width="3" height="3"/></svg>',
+  activity: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+  package: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+  'battery-charging': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/><polygon points="11 7 8 12 12 12 9 17 14 11 11 11 11 7"/></svg>',
+  cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>',
+  'bar-chart-2': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  'volume-2': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>',
+  layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+  move: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>',
+  'dollar-sign': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
+  'refresh-cw': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>',
+  'check-circle': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+};
+
+// ============================
+// RENDER LOGIC
+// ============================
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id") || "ev-pro-48";
+  const product = PRODUCTS[id];
+
+  if (!product) {
+    document.getElementById("pdHeroContent").innerHTML =
+      '<div style="text-align:center;padding:80px 0;"><h2>Product Not Found</h2><p style="color:var(--gray-3)">The product you\'re looking for doesn\'t exist.<br><br><a href="listings.html" class="btn btn-primary">&larr; View All Products</a></p></div>';
+    return;
+  }
+
+  // Update page title
+  document.title = `VortKart\u00AE | ${product.name.replace(/&reg;/g, "\u00AE")} \u2014 Full Specification Sheet`;
+
+  // ---- Hero ----
+  document.getElementById("pdBg").style.backgroundImage = `url('${product.image}')`;
+  document.getElementById("pdHeroContent").innerHTML = `
+    <div>
+      <div class="pd-breadcrumb"><a href="listings.html">Products</a> &nbsp;/&nbsp; ${product.category}</div>
+      ${product.badge ? `<div class="pd-badge" style="${product.badgeColor !== '#E63900' ? 'background:' + product.badgeColor : ''}">${product.badge}</div>` : ''}
+      <h1 class="pd-title">${product.name}</h1>
+      <p class="pd-subtitle">${product.subtitle}</p>
+      <div class="pd-hero-actions">
+        <a href="contact.html?model=${encodeURIComponent(id)}" class="btn btn-primary btn-lg">Request Quote</a>
+        <a href="#tableSection" class="btn btn-outline btn-lg">View Specs</a>
+      </div>
+    </div>
+    <div class="pd-hero-img-wrap">
+      <img src="${product.image}" alt="${product.name} main product shot" />
+    </div>
+  `;
+
+  // ---- Key Specs ----
+  document.getElementById("pdSecLabel").textContent = `${product.name.replace(/&reg;/g, '\u00AE')} — Quick Reference`;
+  document.getElementById("pdKeySpecs").innerHTML = product.keySpecs.map(s => `
+    <div class="pd-spec-card">
+      <div class="pd-spec-label">${s.label}</div>
+      <div class="pd-spec-value">${s.value}<span class="pd-spec-unit">${s.unit}</span></div>
+    </div>
+  `).join("");
+
+  // ---- Features ----
+  document.getElementById("featTitle").textContent = product.name.replace(/&reg;/g, '\u00AE');
+  document.getElementById("pdFeatures").innerHTML = product.features.map(f => `
+    <div class="pd-feature-item">
+      <div class="pd-feature-icon">${ICONS[f.icon] || ICONS.bolt}</div>
+      <div class="pd-feature-text">
+        <h4>${f.title}</h4>
+        <p>${f.desc}</p>
+      </div>
+    </div>
+  `).join("");
+
+  // ---- Full Spec Table ----
+  document.getElementById("pdSpecTable").innerHTML = product.tableRows.map(row => `
+    <tr><td>${row[0]}</td><td>${row[1]}</td></tr>
+  `).join("");
+
+  // ---- Gallery ----
+  document.getElementById("pdGallery").innerHTML = product.gallery.map(src => `
+    <img src="${src}" alt="${product.name} gallery photo" loading="lazy" />
+  `).join("");
+
+  // ---- CTA Bar ----
+  document.getElementById("ctaBarTitle").textContent = `Ready to Order ${product.name.replace(/&reg;/g, '\u00AE')}?`;
+
+  // ---- Related Products ----
+  document.getElementById("pdRelated").innerHTML = product.related.map(rid => {
+    const rp = PRODUCTS[rid];
+    if (!rp) return '';
+    return `
+      <a href="product.html?id=${rid}" class="pd-related-card" style="text-decoration:none;color:inherit;">
+        <img src="${rp.image}" alt="${rp.name}" loading="lazy" />
+        <div class="pd-related-body">
+          <h4>${rp.name}</h4>
+          <p style="margin:0;">${rp.subtitle.substring(0, 90)}...</p>
+          <a href="product.html?id=${rid}" class="btn btn-outline" style="margin-top:auto;padding:8px 18px;font-size:12px;">View Specs &rarr;</a>
+        </div>
+      </a>`;
+  }).join("");
+
+})();
+</script>
+</body>
+</html>
