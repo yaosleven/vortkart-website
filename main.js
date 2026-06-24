@@ -145,12 +145,11 @@ document.addEventListener('DOMContentLoaded', function () {
     statNums.forEach(el => countObs.observe(el));
   }
 
-  // ---- Contact form (FormSubmit AJAX) ----
+  // ---- Contact form (Web3Forms AJAX) ----
   const form = document.getElementById('contactForm');
   if (form) {
     const submitBtn = form.querySelector('[type="submit"]');
     const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
-    const replytoField = document.getElementById('replytoField');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -173,27 +172,25 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Set reply-to email for FormSubmit
-      const emailField = form.querySelector('#email');
-      if (emailField && replytoField) {
-        replytoField.value = emailField.value;
-      }
-
       submitBtn.innerHTML = 'Sending&hellip;';
       submitBtn.disabled = true;
 
-      // Collect form data
+      // Collect form data as JSON for Web3Forms
       const formData = new FormData(form);
-      const action = form.getAttribute('action');
+      const data = {};
+      formData.forEach((value, key) => { data[key] = value; });
 
-      fetch(action, {
+      fetch(form.getAttribute('action'), {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
       .then(response => response.json())
-      .then(data => {
-        if (data.success === 'true' || data.success === true) {
+      .then(result => {
+        if (result.success) {
           submitBtn.innerHTML = '&#10003; Message Sent — We\'ll be in touch within 24 hours!';
           submitBtn.style.background = '#22c55e';
           form.reset();
@@ -203,11 +200,11 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.disabled = false;
           }, 4000);
         } else {
-          throw new Error(data.message || 'Submission failed');
+          throw new Error(result.message || 'Submission failed');
         }
       })
       .catch(error => {
-        console.error('FormSubmit error:', error);
+        console.error('Web3Forms error:', error);
         submitBtn.innerHTML = '&#9888; Submission failed. Please email us directly at sales@vortkart.com';
         submitBtn.style.background = '#ef4444';
         setTimeout(() => {
